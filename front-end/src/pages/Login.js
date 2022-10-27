@@ -49,6 +49,7 @@ export default function Login() {
           onChange={ onInputChange }
         />
       </label>
+      <br />
       <button
         data-testid="common_login__input-login"
         type="button"
@@ -57,11 +58,11 @@ export default function Login() {
       >
         Login
       </button>
+      <br />
       <button
-        data-testid="common_login__input-login"
+        data-testid="common_login__button-register"
         type="button"
-        disabled={ btnDisable }
-        onClick={ () => console.log('Login com sucesso') }
+        onClick={ () => console.log('Redirecionado com sucesso') }
       >
         Cadastrar
       </button>
