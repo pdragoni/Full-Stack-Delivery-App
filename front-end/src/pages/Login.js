@@ -27,7 +27,7 @@ export default function Login() {
   }, [email, password, btnDisable]);
 
   return (
-    <div>
+    <form>
       <label htmlFor="email">
         Insira seu e-mail
         <input
@@ -70,6 +70,6 @@ export default function Login() {
         !validEmail
         && <span data-testid="common_login__element-invalid-email">E-mail inválido</span>
       } */}
-    </div>
+    </form>
   );
 }
