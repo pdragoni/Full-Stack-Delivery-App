@@ -1,9 +1,11 @@
 import { React, useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
   const [btnDisable, setBtnDisable] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
   // const [validEmail, setValidEmail] = useState(true);
 
   const onInputChange = ({ target }) => {
@@ -17,6 +19,7 @@ export default function Login() {
   useEffect(() => {
     const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
     const minPasswordLength = 6;
+
     if (regex.test(email) && password.length >= minPasswordLength) {
       setBtnDisable(false);
       // setValidEmail(true);
@@ -62,7 +65,7 @@ export default function Login() {
       <button
         data-testid="common_login__button-register"
         type="button"
-        onClick={ () => console.log('Redirecionado com sucesso') }
+        onClick={ () => navigate('/register') }
       >
         Cadastrar
       </button>
