@@ -7,15 +7,18 @@ export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [validEmail, setValidEmail] = useState(true);
-  const [token, setToken] = useState('');
   const navigate = useNavigate();
 
-  const onInputChange = ({ target }) => {
-    if (target.name === 'email') {
-      setEmail(target.value);
-    } else {
-      setPassword(target.value);
+  const loginClick = async () => {
+    const response = await loginUser({ email, password });
+
+    if (response.message) {
+      return setValidEmail(false);
     }
+    const responseJson = response.data;
+    // console.log(responseJson.token);
+    localStorage.setItem('token', responseJson.token);
+    navigate('/register');
   };
 
   useEffect(() => {
@@ -38,7 +41,7 @@ export default function Login() {
           type="email"
           name="email"
           placeholder="user@email.com"
-          onChange={ onInputChange }
+          onChange={ ({ target }) => setEmail(target.value) }
         />
       </label>
       <br />
@@ -49,7 +52,7 @@ export default function Login() {
           type="password"
           name="password"
           placeholder="******"
-          onChange={ onInputChange }
+          onChange={ ({ target }) => setPassword(target.value) }
         />
       </label>
       <br />
@@ -57,18 +60,7 @@ export default function Login() {
         data-testid="common_login__input-login"
         type="button"
         disabled={ btnDisable }
-        onClick={ async () => {
-          const response = await loginUser({ email, password });
-
-          if (response.message) {
-            return setValidEmail(false);
-          }
-          const responseJson = response.data;
-          // console.log(responseJson);
-          setToken(responseJson.token);
-          localStorage.setItem('token', token);
-          navigate('/register');
-        } }
+        onClick={ loginClick }
       >
         Login
       </button>
