@@ -1,19 +1,24 @@
 import { React, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import loginUser from '../API/instance';
 
 export default function Login() {
   const [btnDisable, setBtnDisable] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [validEmail, setValidEmail] = useState(true);
   const navigate = useNavigate();
-  // const [validEmail, setValidEmail] = useState(true);
 
-  const onInputChange = ({ target }) => {
-    if (target.name === 'email') {
-      setEmail(target.value);
-    } else {
-      setPassword(target.value);
+  const loginClick = async () => {
+    const response = await loginUser({ email, password });
+
+    if (response.message) {
+      return setValidEmail(false);
     }
+    const responseJson = response.data;
+    // console.log(responseJson.token);
+    localStorage.setItem('token', responseJson.token);
+    navigate('/register');
   };
 
   useEffect(() => {
@@ -22,10 +27,8 @@ export default function Login() {
 
     if (regex.test(email) && password.length >= minPasswordLength) {
       setBtnDisable(false);
-      // setValidEmail(true);
     } else {
       setBtnDisable(true);
-      // setValidEmail(false);
     }
   }, [email, password, btnDisable]);
 
@@ -38,7 +41,7 @@ export default function Login() {
           type="email"
           name="email"
           placeholder="user@email.com"
-          onChange={ onInputChange }
+          onChange={ ({ target }) => setEmail(target.value) }
         />
       </label>
       <br />
@@ -49,7 +52,7 @@ export default function Login() {
           type="password"
           name="password"
           placeholder="******"
-          onChange={ onInputChange }
+          onChange={ ({ target }) => setPassword(target.value) }
         />
       </label>
       <br />
@@ -57,7 +60,7 @@ export default function Login() {
         data-testid="common_login__input-login"
         type="button"
         disabled={ btnDisable }
-        onClick={ () => console.log('Login com sucesso') }
+        onClick={ loginClick }
       >
         Login
       </button>
@@ -69,10 +72,10 @@ export default function Login() {
       >
         Cadastrar
       </button>
-      {/* {
+      {
         !validEmail
         && <span data-testid="common_login__element-invalid-email">E-mail inválido</span>
-      } */}
+      }
     </form>
   );
 }
