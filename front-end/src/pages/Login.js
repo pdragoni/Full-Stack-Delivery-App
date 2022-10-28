@@ -1,12 +1,13 @@
 import { React, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import loginUser from '../API/instance';
 
 export default function Login() {
   const [btnDisable, setBtnDisable] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
-  // const [validEmail, setValidEmail] = useState(true);
+  const [validEmail, setValidEmail] = useState(true);
 
   const onInputChange = ({ target }) => {
     if (target.name === 'email') {
@@ -57,7 +58,17 @@ export default function Login() {
         data-testid="common_login__input-login"
         type="button"
         disabled={ btnDisable }
-        onClick={ () => console.log('Login com sucesso') }
+        onClick={ async () => {
+          const response = await loginUser({ email, password });
+
+          if ('message' in response) {
+            return setValidEmail(false);
+          }
+          const responseJson = response.data;
+          setToken(responseJson.token);
+          localStorage.setItem('token', responseJson.token);
+          navigate('/register');
+        } }
       >
         Login
       </button>
@@ -69,10 +80,10 @@ export default function Login() {
       >
         Cadastrar
       </button>
-      {/* {
+      {
         !validEmail
         && <span data-testid="common_login__element-invalid-email">E-mail inválido</span>
-      } */}
+      }
     </form>
   );
 }
