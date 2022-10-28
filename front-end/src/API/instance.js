@@ -5,8 +5,13 @@ const instance = axios.create({
 });
 
 const loginUser = async ({ email, password }) => {
-  instance.post('users/login', { email, password })
-    .catch((error) => error.response.data);
+  try {
+    const response = await instance.post('/users/login', { email, password });
+    console.log(response);
+    return response;
+  } catch (e) {
+    return e;
+  }
 };
 
 export default loginUser;
