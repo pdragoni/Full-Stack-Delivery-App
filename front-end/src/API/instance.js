@@ -7,7 +7,7 @@ const instance = axios.create({
 const loginUser = async ({ email, password }) => {
   try {
     const response = await instance.post('/users/login', { email, password });
-    console.log(response);
+    // console.log(response);
     return response;
   } catch (e) {
     return e;
