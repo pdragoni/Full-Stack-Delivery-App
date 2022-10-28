@@ -6,8 +6,9 @@ export default function Login() {
   const [btnDisable, setBtnDisable] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate();
   const [validEmail, setValidEmail] = useState(true);
+  const [token, setToken] = useState('');
+  const navigate = useNavigate();
 
   const onInputChange = ({ target }) => {
     if (target.name === 'email') {
@@ -23,10 +24,8 @@ export default function Login() {
 
     if (regex.test(email) && password.length >= minPasswordLength) {
       setBtnDisable(false);
-      // setValidEmail(true);
     } else {
       setBtnDisable(true);
-      // setValidEmail(false);
     }
   }, [email, password, btnDisable]);
 
@@ -61,12 +60,13 @@ export default function Login() {
         onClick={ async () => {
           const response = await loginUser({ email, password });
 
-          if ('message' in response) {
+          if (response.message) {
             return setValidEmail(false);
           }
           const responseJson = response.data;
+          // console.log(responseJson);
           setToken(responseJson.token);
-          localStorage.setItem('token', responseJson.token);
+          localStorage.setItem('token', token);
           navigate('/register');
         } }
       >
