@@ -26,11 +26,11 @@ const login = async (req, res) => {
 const register = async (req, res) => {
   try {
     const { name, email, password } = req.body;
-    const result = await usersServices.register({ name, email, password });
+    const user = await usersServices.register({ name, email, password });
 
-    if (!result) return res.status(409).json({ message: 'Conflict' });
-
-    return res.status(201).json({ token: result });
+    if (!user) return res.status(409).json({ message: 'Conflict' });
+    const { role, token } = user;
+    return res.status(201).json({ name, email, role, token });
   } catch (error) {
     console.log(error);
   }
