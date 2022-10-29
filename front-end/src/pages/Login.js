@@ -57,7 +57,7 @@ export default function Login() {
       </label>
       <br />
       <button
-        data-testid="common_login__input-login"
+        data-testid="common_login__button-login"
         type="button"
         disabled={ btnDisable }
         onClick={ loginClick }
