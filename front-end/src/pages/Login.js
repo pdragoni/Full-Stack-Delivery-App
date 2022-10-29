@@ -1,6 +1,6 @@
 import { React, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import loginUser from '../API/instance';
+import { loginUser } from '../API/instance';
 
 export default function Login() {
   const [btnDisable, setBtnDisable] = useState(true);

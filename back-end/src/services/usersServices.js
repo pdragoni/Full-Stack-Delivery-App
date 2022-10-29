@@ -20,9 +20,10 @@ const register = async ({ name, email, password }) => {
   const userName = await users.findOne({ where: { name } });
   if (userEmail || userName) return null;
   const hash = generateHash(password);
-  const newUser = await users.create({ name, email, password: hash, role: 'customer' });
-  const token = createToken({ newUser });
-  return token;
+  const { dataValues } = await users.create({ name, email, password: hash, role: 'customer' });
+  const token = createToken({ dataValues });
+
+  return { ...dataValues, token };
 };
 
 module.exports = { getAll, login, register };
