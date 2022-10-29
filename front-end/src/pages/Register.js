@@ -1,4 +1,5 @@
 import { React, useState, useEffect } from 'react';
+import { registerUser } from '../API/instance';
 
 export default function Register() {
   const [btnDisable, setBtnDisable] = useState(true);
@@ -22,12 +23,17 @@ export default function Register() {
     const minNameLength = 12;
     if (regex.test(email)
       && password.length >= minPasswordLength
-      && name.length < minNameLength) {
+      && name.length >= minNameLength) {
       setBtnDisable(false);
     } else {
       setBtnDisable(true);
     }
   }, [email, password, btnDisable, name]);
+
+  const handleRegister = async () => {
+    const response = await registerUser({ name, email, password });
+    console.log(response); 
+  };
 
   return (
     <form>
@@ -70,7 +76,8 @@ export default function Register() {
       <button
         data-testid="common_register__button-register"
         type="button"
-        onClick={ () => console.log(`${name} cadastrado com sucesso`) }
+        onClick={ handleRegister }
+        disabled={ btnDisable }
       >
         Cadastrar
       </button>
