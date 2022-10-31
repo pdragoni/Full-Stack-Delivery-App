@@ -1,11 +1,11 @@
 const Users = require('./usersRoute');
 const Products = require('./productsRoute');
-// const Sales = require('./salesProducts');
+const Sales = require('./salesRoute');
 // const Admin = require('./admin');
 
 module.exports = {
   Users,
   Products,
-  // Sales,
+  Sales,
   // Admin,
 };
