@@ -1,6 +1,7 @@
 import { React, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { loginUser } from '../API/instance';
+import { setLocalUser } from '../helpers/localStorage';
 
 export default function Login() {
   const [btnDisable, setBtnDisable] = useState(true);
@@ -11,13 +12,11 @@ export default function Login() {
 
   const loginClick = async () => {
     const response = await loginUser({ email, password });
-    // console.log(response);
     if (!response) {
       return setValidEmail(false);
     }
     const responseJson = response.data;
-    // console.log(responseJson.token);
-    localStorage.setItem('token', responseJson.token);
+    setLocalUser(responseJson);
     navigate('/customer/products');
   };
 
