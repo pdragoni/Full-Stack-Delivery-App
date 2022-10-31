@@ -10,7 +10,7 @@ app.use(express.json());
 
 app.use('/users', Route.Users);
 
-// app.use('/products', Route.Products);
+app.use('/products', Route.Products);
 
 // app.use('/sales', Route.Sales);
 
