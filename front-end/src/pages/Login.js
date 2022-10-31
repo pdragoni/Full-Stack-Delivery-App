@@ -18,7 +18,7 @@ export default function Login() {
     const responseJson = response.data;
     // console.log(responseJson.token);
     localStorage.setItem('token', responseJson.token);
-    navigate('/register');
+    navigate('/customer/products');
   };
 
   useEffect(() => {
