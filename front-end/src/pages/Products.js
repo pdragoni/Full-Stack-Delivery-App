@@ -38,15 +38,28 @@ export default function Products() {
       {
         products.map((product) => (
           <fieldset
-            data-testid={ `customer_products__element-card-price-${product.id}` }
             key={ product.id }
           >
-            <p>{ product.name }</p>
-            <p>{ product.price }</p>
-            <img src={ product.url_image } alt={ product.name } />
+            <p
+              data-testid={ `customer_products__element-card-title-${product.id}` }
+            >
+              { product.name }
+            </p>
+            <p
+              data-testid={ `customer_products__element-card-price-${product.id}` }
+            >
+              { product.price }
+
+            </p>
+            <img
+              data-testid={ `customer_products__img-card-bg-image-${product.id}` }
+              src={ product.url_image }
+              alt={ product.name }
+            />
             <br />
             <button
               type="button"
+              data-testid={ `customer_products__button-card-add-item-${product.id}` }
               onClick={ () => handleQuantity(product.id, true) }
             >
               Adicionar
@@ -54,15 +67,22 @@ export default function Products() {
             <br />
             <button
               type="button"
+              data-testid={ `customer_products__button-card-rm-item-${product.id}` }
               onClick={ () => handleQuantity(product.id, false) }
             >
               Remover
             </button>
             <br />
-            <span type="number" placeholder="0">{ product.quantity }</span>
+            <input
+              data-testid={ `customer_products__input-card-quantity-${product.id}` }
+              type="number"
+              placeholder="0"
+              value={ product.quantity }
+            />
           </fieldset>
         ))
       }
+      <span data-testid="checkout-bottom-value">Valor Total</span>
     </div>
   );
 }
