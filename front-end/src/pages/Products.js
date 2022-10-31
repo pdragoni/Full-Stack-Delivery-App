@@ -5,17 +5,20 @@ import { getProducts } from '../API/instance';
 export default function Products() {
   const [products, setProducts] = useState([]);
 
-  const adicionaItem = (id) => {
-    console.log(id);
+  const handleQuantity = (id, param) => {
+    // console.log(id, param);
     const grupo21 = products.map((product) => {
-      if (product.id - 1 === id) {
+      if (product.id === id) {
         let { quantity } = product;
-        quantity += 1;
+
+        if (param) quantity += 1;
+        if (!param && quantity > 0) quantity -= 1;
+
         return { ...product, quantity };
       }
       return product;
     });
-    console.log(grupo21);
+    // console.log(grupo21);
     setProducts(grupo21);
   };
 
@@ -23,7 +26,7 @@ export default function Products() {
     const allProducts = async () => {
       const produtos = await getProducts();
       const g21 = produtos.map((prod) => ({ ...prod, quantity: 0 }));
-      console.log(g21);
+      // console.log(g21);
       return setProducts(g21);
     };
     allProducts();
@@ -41,20 +44,22 @@ export default function Products() {
             <p>{ product.name }</p>
             <p>{ product.price }</p>
             <img src={ product.url_image } alt={ product.name } />
+            <br />
             <button
               type="button"
-              onClick={ () => adicionaItem(product.id) }
+              onClick={ () => handleQuantity(product.id, true) }
             >
               Adicionar
             </button>
+            <br />
             <button
               type="button"
-              onClick={ () => console.log('remover') }
+              onClick={ () => handleQuantity(product.id, false) }
             >
               Remover
-
             </button>
-
+            <br />
+            <span type="number" placeholder="0">{ product.quantity }</span>
           </fieldset>
         ))
       }
