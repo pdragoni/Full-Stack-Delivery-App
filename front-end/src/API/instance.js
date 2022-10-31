@@ -10,7 +10,8 @@ const loginUser = async ({ email, password }) => {
     // console.log(response);
     return response;
   } catch (e) {
-    return e;
+    // console.log(e);
+    return null;
   }
 };
 

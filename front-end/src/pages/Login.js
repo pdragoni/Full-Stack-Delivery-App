@@ -11,8 +11,8 @@ export default function Login() {
 
   const loginClick = async () => {
     const response = await loginUser({ email, password });
-
-    if (response.message) {
+    // console.log(response);
+    if (!response) {
       return setValidEmail(false);
     }
     const responseJson = response.data;
