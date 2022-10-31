@@ -23,4 +23,14 @@ const registerUser = async ({ name, email, password }) => {
   }
 };
 
+const getProducts = async () => {
+  try {
+    const response = await instance.get('/users/register', { name, email, password });
+    console.log(response);
+    return response.data;
+  } catch (error) {
+    return null;
+  }
+};
+
 export { loginUser, registerUser };
