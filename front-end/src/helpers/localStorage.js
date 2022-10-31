@@ -3,7 +3,14 @@ const setLocalStorage = (key, value) => {
   else localStorage.setItem(key, JSON.stringify(value));
 };
 
-const getLocalStorage = (key) => localStorage.getItem(key);
+const getLocalStorage = (key) => {
+  const value = localStorage.getItem(key);
+  try {
+    return JSON.parse(value);
+  } catch (error) {
+    return value;
+  }
+};
 
 const setLocalUser = (user) => {
   const entries = Object.entries(user);
