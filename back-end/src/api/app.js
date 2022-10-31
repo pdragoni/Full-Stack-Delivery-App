@@ -8,11 +8,13 @@ app.use(cors());
 
 app.use(express.json());
 
+app.use('/images', express.static('public'));
+
 app.use('/users', Route.Users);
 
 app.use('/products', Route.Products);
 
-// app.use('/sales', Route.Sales);
+app.use('/sales', Route.Sales);
 
 // app.use('/admin', Route.Admin);
 
