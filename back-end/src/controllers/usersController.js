@@ -16,8 +16,8 @@ const login = async (req, res) => {
     const user = await usersServices.login({ email, password });
 
     if (!user) return res.status(404).json({ message: 'Not Found' });
-
-    return res.status(200).json(user);
+    const { name, role, token } = user;
+    return res.status(200).json({ name, email, role, token });
   } catch (error) {
     console.log(error);
   }

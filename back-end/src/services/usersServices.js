@@ -7,10 +7,11 @@ const getAll = async () => {
 };
 
 const login = async ({ email, password }) => {
-  const dataValues = await users.findOne({ where: { email } });
+  const data = await users.findOne({ where: { email } });
   const hash = generateHash(password);
-  if (!dataValues || dataValues.password !== hash) return null;
-  const token = createToken({ dataValues });
+  if (!data || data.password !== hash) return null;
+  const token = createToken({ data });
+  const { dataValues } = data;
   const result = { ...dataValues, token };
   return result;
 };
