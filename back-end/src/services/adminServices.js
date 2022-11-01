@@ -2,7 +2,7 @@ const { users } = require('../database/models');
 const { createToken, generateHash } = require('../helpers');
 
 const getAllSellers = async () => {
-  const sellers = await users.findAll({ where: { role: 'seller' }});
+  const sellers = await users.findAll({ where: { role: 'seller' } });
   return sellers;
 };
 
