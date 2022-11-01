@@ -24,9 +24,9 @@ export default function Products() {
   useEffect(() => {
     const allProducts = async () => {
       const produtos = await getProducts();
-      const g21 = produtos.map((prod) => ({ ...prod, quantity: 0 }));
+      const mappedProducts = produtos.map((prod) => ({ ...prod, quantity: 0 }));
       // console.log(g21);
-      return setProducts(g21);
+      return setProducts(mappedProducts);
     };
     allProducts();
   }, []);
