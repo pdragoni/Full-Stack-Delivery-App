@@ -45,9 +45,8 @@ const update = async ({ id, status }) => {
   return updatedSale;
 };
 
-// Alterar depois para incluir a lista dos produtos
 const findByUser = async (userId) => {  
-  const salesByUser = await sales.findAll({ where: { userId } }, {
+  const salesByUser = await sales.findAll({ where: { userId },
     include: [
       { model: products, as: 'products' },
     ],
