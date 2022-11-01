@@ -1,6 +1,5 @@
 const { sales, products, salesProducts, sequelize } = require('../database/models');
 
-// Alterar depois para incluir a lista dos produtos
 const getAll = async () => {
   const allSales = await sales.findAll({
     include: [
@@ -13,7 +12,6 @@ const getAll = async () => {
 const create = async (data) => {
   const saleObject = {
     ...data,
-    sellerId: 2,
     status: 'Pendente',
   };
   const createdSale = await sequelize.transaction(async (t) => {
@@ -49,7 +47,11 @@ const update = async ({ id, status }) => {
 
 // Alterar depois para incluir a lista dos produtos
 const findByUser = async (userId) => {  
-  const salesByUser = await sales.findAll({ where: { userId } });
+  const salesByUser = await sales.findAll({ where: { userId } }, {
+    include: [
+      { model: products, as: 'products' },
+    ],
+  });
 
   if (salesByUser.length === 0 || !salesByUser) return null;
   return salesByUser;
