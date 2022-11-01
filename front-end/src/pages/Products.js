@@ -6,8 +6,7 @@ export default function Products() {
   const [products, setProducts] = useState([]);
 
   const handleQuantity = (id, param) => {
-    // console.log(id, param);
-    const grupo21 = products.map((product) => {
+    const updated = products.map((product) => {
       if (product.id === id) {
         let { quantity } = product;
 
@@ -18,8 +17,8 @@ export default function Products() {
       }
       return product;
     });
-    // console.log(grupo21);
-    setProducts(grupo21);
+
+    setProducts(updated);
   };
 
   useEffect(() => {
