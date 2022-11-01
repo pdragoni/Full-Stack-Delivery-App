@@ -21,7 +21,20 @@ export default function Products() {
       }
       return product;
     });
+    const userCart = updated.filter((product) => product.quantity > 0);
+    setLocalStorage('carrinho', userCart);
+    setProducts(updated);
+  };
 
+  const setProdQuantity = (value, productId) => {
+    const updated = products.map((prod) => {
+      if (prod.id === productId) {
+        prod.quantity = value;
+      }
+      return prod;
+    });
+    const userCart = updated.filter((product) => product.quantity > 0);
+    setLocalStorage('carrinho', userCart);
     setProducts(updated);
   };
 
@@ -40,7 +53,7 @@ export default function Products() {
       return acc + (price * quantity);
     }, 0);
     setTotalPrice(total);
-    setLocalStorage('carrinho', total);
+    setLocalStorage('userTotal', total);
   }, [products]);
 
   return (
@@ -81,6 +94,7 @@ export default function Products() {
             <input
               data-testid={ `customer_products__input-card-quantity-${product.id}` }
               type="number"
+              onChange={ ({ target }) => setProdQuantity(target.value, product.id) }
               value={ product.quantity }
             />
           </fieldset>
