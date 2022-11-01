@@ -1,10 +1,13 @@
-import { React, useEffect, useState } from 'react';
+import { React, useEffect, useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import { getProducts } from '../API/instance';
-import { setLocalStorage } from '../helpers/localStorage';
+import { setLocalStorage, getLocalStorage } from '../helpers/localStorage';
+import Context from '../API/Context';
 
 export default function Products() {
+  const { setCart } = useContext(Context);
+
   const [products, setProducts] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const navigate = useNavigate();
@@ -36,6 +39,11 @@ export default function Products() {
     const userCart = updated.filter((product) => product.quantity > 0);
     setLocalStorage('carrinho', userCart);
     setProducts(updated);
+  };
+
+  const goToCheckout = () => {
+    setCart(getLocalStorage('carrinho'));
+    navigate('/customer/checkout');
   };
 
   useEffect(() => {
@@ -103,7 +111,7 @@ export default function Products() {
       <button
         type="button"
         data-testid="customer_products__button-cart"
-        onClick={ () => navigate('/customer/checkout') }
+        onClick={ () => goToCheckout() }
         disabled={ totalPrice === 0 }
       >
         <span data-testid="customer_products__checkout-bottom-value">
