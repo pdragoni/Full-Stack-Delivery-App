@@ -1,11 +1,12 @@
 import { React } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { getLocalStorage } from '../helpers/localStorage';
 
 export default function Navbar() {
   const navigate = useNavigate();
-
+  const { name } = getLocalStorage('user');
   const logoutClick = () => {
-    localStorage.clear();
+    localStorage.removeItem('user');
     navigate('/');
   };
 
@@ -31,8 +32,7 @@ export default function Navbar() {
         type="button"
         onClick={ () => navigate('/profile') }
       >
-        Perfil
-
+        { name }
       </button>
       <button
         data-testid="customer_products__element-navbar-link-logout"
