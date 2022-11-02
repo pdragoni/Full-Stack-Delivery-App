@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { getLocalStorage } from '../helpers/localStorage';
 
 const instance = axios.create({
   baseURL: 'http://localhost:3001',
@@ -35,4 +36,16 @@ const getProducts = async () => {
   }
 };
 
-export { loginUser, registerUser, getProducts };
+const getOrders = async () => {
+  try {
+    const { email } = getLocalStorage('user');
+    const response = await instance.get('/sales/user', { email });
+    // console.log(response);
+    return response.data;
+  } catch (error) {
+    // console.log(error);
+    return null;
+  }
+};
+
+export { loginUser, registerUser, getProducts, getOrders };

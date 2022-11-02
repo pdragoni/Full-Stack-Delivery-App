@@ -27,4 +27,10 @@ const register = async ({ name, email, password }) => {
   return { ...dataValues, token };
 };
 
-module.exports = { getAll, login, register };
+const getByEmail = async (email) => {
+  const user = await users.findOne({ where: { email } });
+  if (!user) return null;
+  return user;
+};
+
+module.exports = { getAll, login, register, getByEmail };
