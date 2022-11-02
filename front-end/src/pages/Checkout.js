@@ -6,6 +6,7 @@ import { setLocalStorage } from '../helpers/localStorage';
 export default function Checkout() {
   const { cart, setCart } = useContext(Context);
   const [atual, setAtual] = useState(cart);
+  const [isDisable, setIsDisable] = useState(false);
 
   const removeItem = (id) => {
     const filtered = atual.filter((c) => c.id !== id);
@@ -20,10 +21,10 @@ export default function Checkout() {
 
   return (
     <div>
-      <Navbar />
-      <ol>
+      {/* <Navbar /> */}
+      <section>
         { atual && atual.map((c, i) => (
-          <li
+          <div
             key={ c.id }
             data-testid={ `customer_checkout__element-order-table-item-number-${i}` }
           >
@@ -32,13 +33,15 @@ export default function Checkout() {
             >
               { c.name }
             </p>
+
             <br />
-            <img src={ c.url_image } alt={ c.name } width="150px" />
+
+            {/* <img src={ c.url_image } alt={ c.name } width="150px" /> */}
             <br />
             <span
               data-testid={ `customer_checkout__element-order-table-quantity-${i}` }
             >
-              {c.quantity}
+              { c.quantity }
             </span>
             <br />
             <span
@@ -60,9 +63,28 @@ export default function Checkout() {
             >
               remove
             </button>
-          </li>
+          </div>
         ))}
-      </ol>
+      </section>
+      <span data-testid="customer_checkout__element-order-total-price">Valor total</span>
+      <form>
+        <select data-testid="customer_checkout__select-seller">select</select>
+        <br />
+        <input type="text" data-testid="customer_checkout__input-address" />
+        <br />
+        <input
+          type="number"
+          min="0"
+          data-testid="customer_checkout__input-address-number"
+        />
+        <button
+          type="button"
+          disable={ isDisable }
+          data-testid="customer_checkout__button-submit-order"
+        >
+          botaum
+        </button>
+      </form>
     </div>
   );
 }
