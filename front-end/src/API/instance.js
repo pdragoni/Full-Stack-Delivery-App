@@ -67,9 +67,17 @@ const getUserId = async (email) => {
   }
 };
 
+// token
 const createOrder = async (order) => {
+  console.log('createOrder ', order);
+  /*   const config = {
+    headers: {
+      authorization: token,
+    },
+  }; */
   try {
-    const response = await instance.post('/orders', order);
+    const response = await instance.post('/sales', order); // config
+    console.log(response);
     return response.data;
   } catch (error) {
     console.log(error);

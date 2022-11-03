@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Context from '../API/Context';
 import Navbar from '../components/Navbar';
 import { getLocalStorage, setLocalStorage } from '../helpers/localStorage';
-import calculateTotalPrice from '../helpers/utils';
+import { calculateTotalPrice, calculateTotalPriceToNumber } from '../helpers/utils';
 import { createOrder, getAllSellers, getUserId } from '../API/instance';
 
 export default function Checkout() {
@@ -53,12 +53,14 @@ export default function Checkout() {
     const order = {
       userId,
       sellerId: Number(sellerSelect.current.value),
+      totalPrice: Number(calculateTotalPriceToNumber(atual)),
       deliveryAdrees: address,
       deliveryNumber: addressNumber,
       sale,
     };
-
+    //  const { token } = getLocalStorage('user');
     const response = await createOrder(order);
+    console.log('resposta api: ', response);
     navigate(`/customer/orders/${response.id}`);
   };
 

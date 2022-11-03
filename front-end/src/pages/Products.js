@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import { getProducts } from '../API/instance';
 import { setLocalStorage, getLocalStorage } from '../helpers/localStorage';
-import calculateTotalPrice from '../helpers/utils';
+import { calculateTotalPrice } from '../helpers/utils';
 import Context from '../API/Context';
 
 export default function Products() {
