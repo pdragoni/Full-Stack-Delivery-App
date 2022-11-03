@@ -35,4 +35,14 @@ const getProducts = async () => {
   }
 };
 
-export { loginUser, registerUser, getProducts };
+const getAllSellers = async () => {
+  try {
+    const response = await instance.get('/admin/sellers');
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
+export { loginUser, registerUser, getProducts, getAllSellers };

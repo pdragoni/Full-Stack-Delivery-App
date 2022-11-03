@@ -1,8 +1,10 @@
+/* eslint-disable react/jsx-key */
 import { React, useContext, useEffect, useState } from 'react';
 import Context from '../API/Context';
 import Navbar from '../components/Navbar';
 import { setLocalStorage } from '../helpers/localStorage';
 import calculateTotalPrice from '../helpers/utils';
+import { getAllSellers } from '../API/instance';
 
 export default function Checkout() {
   const { cart, setCart } = useContext(Context);
@@ -10,6 +12,7 @@ export default function Checkout() {
   const [isDisable, setIsDisable] = useState(true);
   const [address, setAddress] = useState('');
   const [addressNumber, setAddressNumber] = useState(0);
+  const [sellers, setSellers] = useState([]);
 
   const removeItem = (id) => {
     const filtered = atual.filter((c) => c.id !== id);
@@ -31,6 +34,14 @@ export default function Checkout() {
   useEffect(() => {
 
   }, [cart]);
+
+  useEffect(() => {
+    const fetchAllSellers = async () => {
+      const data = await getAllSellers();
+      setSellers(data);
+    };
+    fetchAllSellers();
+  }, []);
 
   return (
     <div>
@@ -89,7 +100,11 @@ export default function Checkout() {
         { calculateTotalPrice(atual) }
       </span>
       <form>
-        <select data-testid="customer_checkout__select-seller">select</select>
+        <select data-testid="customer_checkout__select-seller">
+          { sellers && sellers.map((seller, index) => (
+            <option key={ index }>{ seller.name }</option>
+          ))}
+        </select>
         <br />
         <input
           type="text"
@@ -108,7 +123,7 @@ export default function Checkout() {
           disabled={ isDisable }
           data-testid="customer_checkout__button-submit-order"
         >
-          botaum
+          Finalizar Pedido
         </button>
       </form>
     </div>
