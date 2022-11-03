@@ -23,7 +23,6 @@ export default function CustomerOrders() {
         {orders.map((order) => (
           <Link key={ order.id } to={ `/customer/orders/${order.id}` }>
             <div
-              key={ index }
               className="order-card"
             >
               <p data-testid={ `customer_orders__element-order-id-${order.id}` }>
