@@ -35,6 +35,16 @@ const getProducts = async () => {
   }
 };
 
+const getAllSellers = async () => {
+  try {
+    const response = await instance.get('/admin/sellers');
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
 const getOrders = async (email) => {
   try {
     const response = await instance.get('/sales/user', { email });
@@ -46,4 +56,33 @@ const getOrders = async (email) => {
   }
 };
 
-export { loginUser, registerUser, getProducts, getOrders };
+const getUserId = async (email) => {
+  try {
+    const response = await instance.get('/users');
+    const user = response.data.find((u) => u.email === email);
+    return user.id;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
+const createOrder = async (order, token) => {
+  const config = {
+    headers: {
+      authorization: token,
+    },
+  };
+  const response = await instance.post('/sales', order, config);
+  return response.data;
+};
+
+export {
+  loginUser,
+  registerUser,
+  getProducts,
+  getAllSellers,
+  getUserId,
+  createOrder,
+  getOrders,
+};

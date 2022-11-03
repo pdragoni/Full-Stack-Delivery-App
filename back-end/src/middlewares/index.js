@@ -1,4 +1,4 @@
-const { verifyToken } = require("../helpers");
+const { verifyToken } = require('../helpers');
 
 const checkToken = (req, res, next) => {
   const token = req.headers.authorization;

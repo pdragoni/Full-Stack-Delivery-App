@@ -34,7 +34,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DECIMAL(9,2),
       },
-      delivery_adress: {
+      delivery_address: {
         allowNull: false,
         type: Sequelize.STRING,
       },
