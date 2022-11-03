@@ -45,4 +45,24 @@ const getAllSellers = async () => {
   }
 };
 
-export { loginUser, registerUser, getProducts, getAllSellers };
+const getUserId = async (email) => {
+  try {
+    const response = await instance.get('/users');
+    const user = response.data.find((u) => u.email === email);
+    return user.id;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
+const createOrder = async (order) => {
+  try {
+    const response = await instance.post('/orders', order);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+export { loginUser, registerUser, getProducts, getAllSellers, getUserId, createOrder };

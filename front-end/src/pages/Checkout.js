@@ -1,18 +1,21 @@
 /* eslint-disable react/jsx-key */
-import { React, useContext, useEffect, useState } from 'react';
+import { React, useContext, useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Context from '../API/Context';
 import Navbar from '../components/Navbar';
-import { setLocalStorage } from '../helpers/localStorage';
+import { getLocalStorage, setLocalStorage } from '../helpers/localStorage';
 import calculateTotalPrice from '../helpers/utils';
-import { getAllSellers } from '../API/instance';
+import { createOrder, getAllSellers, getUserId } from '../API/instance';
 
 export default function Checkout() {
   const { cart, setCart } = useContext(Context);
+  const navigate = useNavigate();
   const [atual, setAtual] = useState(cart);
   const [isDisable, setIsDisable] = useState(true);
   const [address, setAddress] = useState('');
   const [addressNumber, setAddressNumber] = useState(0);
   const [sellers, setSellers] = useState([]);
+  const sellerSelect = useRef(null);
 
   const removeItem = (id) => {
     const filtered = atual.filter((c) => c.id !== id);
@@ -42,6 +45,22 @@ export default function Checkout() {
     };
     fetchAllSellers();
   }, []);
+
+  const finishOrder = async () => {
+    const { email } = getLocalStorage('user');
+    const userId = await getUserId(email);
+    const sale = atual.map((prod) => ({ productId: prod.id, quantity: prod.quantity }));
+    const order = {
+      userId,
+      sellerId: Number(sellerSelect.current.value),
+      deliveryAdrees: address,
+      deliveryNumber: addressNumber,
+      sale,
+    };
+
+    const response = await createOrder(order);
+    navigate(`/customer/orders/${response.id}`);
+  };
 
   return (
     <div>
@@ -100,9 +119,9 @@ export default function Checkout() {
         { calculateTotalPrice(atual) }
       </span>
       <form>
-        <select data-testid="customer_checkout__select-seller">
+        <select data-testid="customer_checkout__select-seller" ref={ sellerSelect }>
           { sellers && sellers.map((seller, index) => (
-            <option key={ index }>{ seller.name }</option>
+            <option key={ index } value={ seller.id }>{ seller.name }</option>
           ))}
         </select>
         <br />
@@ -122,6 +141,7 @@ export default function Checkout() {
           type="button"
           disabled={ isDisable }
           data-testid="customer_checkout__button-submit-order"
+          onClick={ finishOrder }
         >
           Finalizar Pedido
         </button>
