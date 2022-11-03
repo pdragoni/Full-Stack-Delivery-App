@@ -43,6 +43,7 @@ const getAllSellers = async () => {
     console.log(error);
     return null;
   }
+};
 
 const getOrders = async (email) => {
   try {
@@ -76,4 +77,12 @@ const createOrder = async (order) => {
   }
 };
 
-export { loginUser, registerUser, getProducts, getAllSellers, getUserId, createOrder };
+export {
+  loginUser,
+  registerUser,
+  getProducts,
+  getAllSellers,
+  getUserId,
+  createOrder,
+  getOrders,
+};
