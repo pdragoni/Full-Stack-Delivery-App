@@ -1,5 +1,3 @@
-const { NOW } = require("sequelize");
-
 const Sales = (sequelize, DataTypes) => {
   const Sales = sequelize.define('sales', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
@@ -8,8 +6,8 @@ const Sales = (sequelize, DataTypes) => {
     totalPrice: { type: DataTypes.DECIMAL(9,2), field: 'total_price' },
     deliveryAddress: { type: DataTypes.STRING, field: 'delivery_address' },
     deliveryNumber: { type: DataTypes.STRING, field: 'delivery_number' },
-    saleDate: { type: DataTypes.DATE, defaultValue: NOW, field: 'sale_date' },
-    status: DataTypes.STRING,
+    saleDate: { type: DataTypes.DATE, defaultValue: DataTypes.NOW, field: 'sale_date' },
+    status: { type: DataTypes.STRING, defaultValue: 'Pendente' },
   },
   {
     timestamps: false,
