@@ -3,13 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import { getProducts } from '../API/instance';
 import { setLocalStorage, getLocalStorage } from '../helpers/localStorage';
+import calculateTotalPrice from '../helpers/utils';
 import Context from '../API/Context';
 
 export default function Products() {
   const { setCart } = useContext(Context);
 
   const [products, setProducts] = useState([]);
-  const [totalPrice, setTotalPrice] = useState(0);
   const navigate = useNavigate();
 
   const handleQuantity = (id, param) => {
@@ -54,14 +54,6 @@ export default function Products() {
     };
     allProducts();
   }, []);
-
-  useEffect(() => {
-    const total = products.reduce((acc, curr) => {
-      const { price, quantity } = curr;
-      return acc + (price * quantity);
-    }, 0);
-    setTotalPrice(total);
-  }, [products]);
 
   return (
     <div>
@@ -111,10 +103,10 @@ export default function Products() {
         type="button"
         data-testid="customer_products__button-cart"
         onClick={ () => goToCheckout() }
-        disabled={ totalPrice === 0 }
+        disabled={ calculateTotalPrice(products) === '0,00' }
       >
         <span data-testid="customer_products__checkout-bottom-value">
-          { totalPrice.toFixed(2).replace('.', ',') }
+          { calculateTotalPrice(products) }
         </span>
       </button>
     </div>

@@ -2,6 +2,7 @@ import { React, useContext, useEffect, useState } from 'react';
 import Context from '../API/Context';
 import Navbar from '../components/Navbar';
 import { setLocalStorage } from '../helpers/localStorage';
+import calculateTotalPrice from '../helpers/utils';
 
 export default function Checkout() {
   const { cart, setCart } = useContext(Context);
@@ -30,14 +31,6 @@ export default function Checkout() {
   useEffect(() => {
 
   }, [cart]);
-
-  const totalPrice = () => {
-    const total = cart.reduce((acc, curr) => {
-      const { price, quantity } = curr;
-      return acc + (price * quantity);
-    }, 0);
-    return total.toFixed(2).replace('.', ',');
-  };
 
   return (
     <div>
@@ -93,7 +86,7 @@ export default function Checkout() {
       <span
         data-testid="customer_checkout__element-order-total-price"
       >
-        { totalPrice() }
+        { calculateTotalPrice(atual) }
       </span>
       <form>
         <select data-testid="customer_checkout__select-seller">select</select>
