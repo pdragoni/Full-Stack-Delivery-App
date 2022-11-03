@@ -1,7 +1,7 @@
 import { React, useContext, useEffect, useState } from 'react';
 import Context from '../API/Context';
 import Navbar from '../components/Navbar';
-import { setLocalStorage, getLocalStorage } from '../helpers/localStorage';
+import { setLocalStorage } from '../helpers/localStorage';
 
 export default function Checkout() {
   const { cart, setCart } = useContext(Context);
@@ -9,8 +9,6 @@ export default function Checkout() {
   const [isDisable, setIsDisable] = useState(true);
   const [address, setAddress] = useState('');
   const [addressNumber, setAddressNumber] = useState(0);
-
-  const vtotal = getLocalStorage('userTotal');
 
   const removeItem = (id) => {
     const filtered = atual.filter((c) => c.id !== id);
@@ -32,6 +30,14 @@ export default function Checkout() {
   useEffect(() => {
 
   }, [cart]);
+
+  const totalPrice = () => {
+    const total = cart.reduce((acc, curr) => {
+      const { price, quantity } = curr;
+      return acc + (price * quantity);
+    }, 0);
+    return total.toFixed(2).replace('.', ',');
+  };
 
   return (
     <div>
@@ -87,7 +93,7 @@ export default function Checkout() {
       <span
         data-testid="customer_checkout__element-order-total-price"
       >
-        { vtotal.toFixed(2).replace('.', ',') }
+        { totalPrice() }
       </span>
       <form>
         <select data-testid="customer_checkout__select-seller">select</select>

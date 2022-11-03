@@ -61,7 +61,6 @@ export default function Products() {
       return acc + (price * quantity);
     }, 0);
     setTotalPrice(total);
-    setLocalStorage('userTotal', total);
   }, [products]);
 
   return (
