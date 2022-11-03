@@ -1,5 +1,5 @@
 const { sales, products, salesProducts, sequelize } = require('../database/models');
-import { findByUser } from '../controllers/usersServices';
+import { getByEmail } from '../services/usersServices';
 
 const getAll = async () => {
   const allSales = await sales.findAll({
@@ -47,7 +47,7 @@ const update = async ({ id, status }) => {
 };
 
 const findByUser = async (email) => {  
-  const user = await findByUser(email);
+  const user = await getByEmail(email);
   if (!user) return null;
 
   const { id:userId } = user;
