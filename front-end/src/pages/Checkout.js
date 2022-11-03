@@ -54,14 +54,14 @@ export default function Checkout() {
       userId,
       sellerId: Number(sellerSelect.current.value),
       totalPrice: Number(calculateTotalPriceToNumber(atual)),
-      deliveryAdrees: address,
+      deliveryAddress: address,
       deliveryNumber: addressNumber,
       sale,
     };
-    //  const { token } = getLocalStorage('user');
-    const response = await createOrder(order);
-    console.log('resposta api: ', response);
-    navigate(`/customer/orders/${response.id}`);
+    const { token } = getLocalStorage('user');
+    const response = await createOrder(order, token);
+
+    navigate(`/customer/orders/${response.newSale.id}`);
   };
 
   return (

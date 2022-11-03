@@ -67,22 +67,14 @@ const getUserId = async (email) => {
   }
 };
 
-// token
-const createOrder = async (order) => {
-  console.log('createOrder ', order);
-  /*   const config = {
+const createOrder = async (order, token) => {
+  const config = {
     headers: {
       authorization: token,
     },
-  }; */
-  try {
-    const response = await instance.post('/sales', order); // config
-    console.log(response);
-    return response.data;
-  } catch (error) {
-    console.log(error);
-    return null;
-  }
+  };
+  const response = await instance.post('/sales', order, config);
+  return response.data;
 };
 
 export {
