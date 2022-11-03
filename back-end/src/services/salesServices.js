@@ -1,5 +1,5 @@
 const { sales, products, salesProducts, sequelize } = require('../database/models');
-import { getByEmail } from '../services/usersServices';
+const { getByEmail } = require('./usersServices');
 
 const getAll = async () => {
   const allSales = await sales.findAll({
@@ -50,7 +50,7 @@ const findByUser = async (email) => {
   const user = await getByEmail(email);
   if (!user) return null;
 
-  const { id:userId } = user;
+  const { id: userId } = user;
   const salesByUser = await sales.findAll({ where: { userId },
     include: [
       { model: products, as: 'products' },
