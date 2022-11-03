@@ -6,10 +6,10 @@ import Register from './pages/Register';
 import Products from './pages/Products';
 import Checkout from './pages/Checkout';
 import Provider from './API/Provider';
+import CustomerOrders from './pages/CustomerOrders';
 
 function App() {
   return (
-
     <BrowserRouter>
       <Provider>
         <Routes>
@@ -18,6 +18,7 @@ function App() {
           <Route exact path="/register" element={ <Register /> } />
           <Route exact path="/customer/products" element={ <Products /> } />
           <Route exact path="/customer/checkout" element={ <Checkout /> } />
+          <Route exact path="/customer/orders" element={ <CustomerOrders /> } />
         </Routes>
       </Provider>
     </BrowserRouter>

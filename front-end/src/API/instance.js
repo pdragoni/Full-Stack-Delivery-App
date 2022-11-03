@@ -43,6 +43,16 @@ const getAllSellers = async () => {
     console.log(error);
     return null;
   }
+
+const getOrders = async (email) => {
+  try {
+    const response = await instance.get('/sales/user', { email });
+    // console.log(response);
+    return response.data;
+  } catch (error) {
+    // console.log(error);
+    return null;
+  }
 };
 
 const getUserId = async (email) => {
@@ -65,4 +75,5 @@ const createOrder = async (order) => {
     return null;
   }
 };
+
 export { loginUser, registerUser, getProducts, getAllSellers, getUserId, createOrder };
