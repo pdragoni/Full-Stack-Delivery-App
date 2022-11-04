@@ -83,7 +83,7 @@ export default function OrderDetails() {
                     <td
                       data-testid={ `${dtDefault}table-unit-price-${index}` }
                     >
-                      { product.price }
+                      { (product.price).replace('.', ',') }
                     </td>
                     <td
                       data-testid={ `${dtDefault}table-sub-total-${index}` }
