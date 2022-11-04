@@ -15,7 +15,7 @@ export default function Navbar() {
       <button
         data-testid="customer_products__element-navbar-link-products"
         type="button"
-        onClick={ () => navigate('/products') }
+        onClick={ () => navigate('/customer/products') }
       >
         Produtos
       </button>
@@ -25,7 +25,6 @@ export default function Navbar() {
         onClick={ () => navigate('/customer/orders') }
       >
         Pedidos
-
       </button>
       <button
         data-testid="customer_products__element-navbar-user-full-name"
@@ -40,7 +39,6 @@ export default function Navbar() {
         onClick={ logoutClick }
       >
         Sair
-
       </button>
     </header>
   );
