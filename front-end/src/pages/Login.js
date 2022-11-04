@@ -1,7 +1,7 @@
 import { React, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { loginUser } from '../API/instance';
-import { setLocalStorage } from '../helpers/localStorage';
+import { getLocalStorage, setLocalStorage } from '../helpers/localStorage';
 
 export default function Login() {
   const [btnDisable, setBtnDisable] = useState(true);
@@ -19,6 +19,19 @@ export default function Login() {
     setLocalStorage('user', responseJson);
     navigate('/customer/products');
   };
+
+  useEffect(() => {
+    const user = getLocalStorage('user');
+    if (user) {
+      const { role } = user;
+      switch (role) {
+      case 'customer': return navigate('/customer/products');
+      case 'seller': return navigate('/seller/orders');
+      case 'administrator': return navigate('/admin/manage');
+      default: return 0;
+      }
+    }
+  }, []); // eslint-disable-line
 
   useEffect(() => {
     const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
