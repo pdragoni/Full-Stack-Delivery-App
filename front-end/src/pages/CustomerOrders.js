@@ -20,7 +20,7 @@ export default function CustomerOrders() {
     <div>
       <Navbar />
       <div className="orders-container">
-        {orders.map((order) => (
+        { (orders !== []) && orders?.map((order) => (
           <Link key={ order.id } to={ `/customer/orders/${order.id}` }>
             <div
               className="order-card"
@@ -29,13 +29,13 @@ export default function CustomerOrders() {
                 {`Pedido ${order.id}`}
               </p>
               <p data-testid={ `customer_orders__element-order-date-${order.id}` }>
-                {order.sale_date}
+                {new Intl.DateTimeFormat('pt-BR').format(new Date(order.saleDate))}
               </p>
               <p data-testid={ `customer_orders__element-card-price-${order.id}` }>
-                {`R$ ${order.total_price.replace('.', ',')}`}
+                {`${order.totalPrice.replace('.', ',')}`}
               </p>
               <p data-testid={ `customer_orders__element-delivery-status-${order.id}` }>
-                {order.status === 'Pendente' ? 'Pendente' : 'Entregue'}
+                { order.status }
               </p>
             </div>
           </Link>

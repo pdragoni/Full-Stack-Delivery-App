@@ -49,7 +49,6 @@ const update = async ({ id, status }) => {
 const findByUser = async (email) => {  
   const user = await getByEmail(email);
   if (!user) return null;
-
   const { id: userId } = user;
   const salesByUser = await sales.findAll({ where: { userId },
     include: [
