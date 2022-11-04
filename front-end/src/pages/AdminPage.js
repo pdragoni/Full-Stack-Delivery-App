@@ -1,9 +1,12 @@
 import React, { useRef, useState } from 'react';
+import { createUserByAdm } from '../API/instance';
 import Navbar from '../components/Navbar';
+import { getLocalStorage } from '../helpers/localStorage';
 
 export default function AdminPage() {
   const [formValues, setFormValues] = useState({ name: '', email: '', password: '' });
   const roleSelect = useRef(null);
+  const [showMessage, setShowMessage] = useState(false);
 
   const onInputChange = ({ target: { name, value } }) => {
     setFormValues((state) => ({ ...state, [name]: value }));
@@ -15,6 +18,18 @@ export default function AdminPage() {
     const six = 6;
     const twelve = 12;
     return !(password.length >= six && name.length >= twelve && regex.test(email));
+  };
+
+  const createUser = async () => {
+    const { name, email, password } = formValues;
+    const role = roleSelect.current.value;
+    const { token } = getLocalStorage('user');
+    const data = await createUserByAdm({ name, email, password, role }, token);
+    console.log(data);
+    if (data) {
+      return window.alert('Usuário criado com sucesso!'); // eslint-disable-line
+    }
+    return setShowMessage(true);
   };
 
   return (
@@ -69,8 +84,18 @@ export default function AdminPage() {
         </label>
         <br />
         <br />
-        <button type="button" disabled={ enableButton() }>Cadastrar</button>
+        <button
+          data-testid="admin_manage__button-register"
+          type="button"
+          disabled={ enableButton() }
+          onClick={ createUser }
+        >
+          Cadastrar
+        </button>
       </form>
+
+      { showMessage
+      && <p data-testid="admin_manage__element-invalid-register">Usuário já existe</p> }
     </div>
   );
 }
