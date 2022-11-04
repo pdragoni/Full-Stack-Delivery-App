@@ -75,9 +75,11 @@ const findByUser = async (email) => {
   if (!user || user.role === 'administrator') return null;
 
   const { id } = user;
-  const salesByUser = user.role === 'customer' ? await findSalesCustomer(id) : await findSalesSeller(id);
+  const salesByUser = user.role === 'customer'
+    ? await findSalesCustomer(id)
+    : await findSalesSeller(id);
 
-  if (salesByUser.length === 0 || !salesByUser) return null;
+  if (salesByUser.length === 0) return null;
   return salesByUser;
 };
 
