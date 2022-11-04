@@ -56,6 +56,17 @@ const getOrders = async (email) => {
   }
 };
 
+const getOrderById = async (id) => {
+  try {
+    const response = await instance.get(`/sales/${id}`);
+    // console.log(response);
+    return response.data;
+  } catch (error) {
+    // console.log(error);
+    return null;
+  }
+};
+
 const getUserId = async (email) => {
   try {
     const response = await instance.get('/users');
@@ -85,4 +96,5 @@ export {
   getUserId,
   createOrder,
   getOrders,
+  getOrderById,
 };
