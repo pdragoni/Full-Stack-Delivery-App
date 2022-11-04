@@ -22,7 +22,7 @@ export default function Navbar() {
       <button
         data-testid="customer_products__element-navbar-link-orders"
         type="button"
-        onClick={ () => navigate('/orders') }
+        onClick={ () => navigate('/customer/orders') }
       >
         Pedidos
 
