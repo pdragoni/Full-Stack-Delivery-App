@@ -1,7 +1,22 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import Navbar from '../components/Navbar';
 
 export default function AdminPage() {
+  const [formValues, setFormValues] = useState({ name: '', email: '', password: '' });
+  const roleSelect = useRef(null);
+
+  const onInputChange = ({ target: { name, value } }) => {
+    setFormValues((state) => ({ ...state, [name]: value }));
+  };
+
+  const enableButton = () => {
+    const { name, email, password } = formValues;
+    const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+    const six = 6;
+    const twelve = 12;
+    return !(password.length >= six && name.length >= twelve && regex.test(email));
+  };
+
   return (
     <div>
       <Navbar />
@@ -9,21 +24,19 @@ export default function AdminPage() {
       <form>
         <label htmlFor="name">
           Nome
-          {' '}
           <input
-            data-testid="common_register__input-name"
+            data-testid="admin_manage__input-name"
             type="text"
-            name="user-name"
-            placeholder="Seu nome"
+            name="name"
+            placeholder="Nome e sobrenome"
             onChange={ onInputChange }
           />
         </label>
         <br />
         <label htmlFor="email">
-          Insira seu e-mail
-          {' '}
+          E-mail
           <input
-            data-testid="common_register__input-email"
+            data-testid="admin_manage__input-email"
             type="email"
             name="email"
             placeholder="user@email.com"
@@ -32,16 +45,31 @@ export default function AdminPage() {
         </label>
         <br />
         <label htmlFor="password">
-          Insira sua senha
-          {' '}
+          Senha
           <input
-            data-testid="common_register__input-password"
+            data-testid="admin_manage__input-password"
             type="password"
             name="password"
             placeholder="******"
             onChange={ onInputChange }
           />
         </label>
+        <br />
+        <label htmlFor="role">
+          Tipo
+          <select
+            data-testid="admin_manage__select-role"
+            defaultValue="seller"
+            ref={ roleSelect }
+          >
+            <option value="seller">Vendedor</option>
+            <option value="customer">Cliente</option>
+            <option value="administrator">Administrador</option>
+          </select>
+        </label>
+        <br />
+        <br />
+        <button type="button" disabled={ enableButton() }>Cadastrar</button>
       </form>
     </div>
   );
