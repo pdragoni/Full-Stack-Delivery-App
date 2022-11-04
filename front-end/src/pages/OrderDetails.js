@@ -9,9 +9,7 @@ export default function OrderDetails() {
 
   const { id } = useParams();
 
-  const string = 'customer_order_details__element-order-';
-
-  const sellerName = 'Fulana Pereira';
+  const dtDefault = 'customer_order_details__element-order-';
 
   useEffect(() => {
     getOrderById(id).then((response) => setOrder(response));
@@ -29,39 +27,37 @@ export default function OrderDetails() {
           <table>
             <thead>
               <td
-                data-testid={ `${string}details-label-order-id` }
+                data-testid={ `${dtDefault}details-label-order-id` }
               >
                 { order.id }
               </td>
               <td
-                data-testid={ `${string}details-label-seller-name` }
+                data-testid={ `${dtDefault}details-label-seller-name` }
               >
-                { sellerName }
+                { order.seller.name }
               </td>
               <td
-                data-testid={ `${string}details-label-order-date` }
+                data-testid={ `${dtDefault}details-label-order-date` }
 
               >
                 { `${new Intl.DateTimeFormat('pt-BR')
                   .format(new Date(order.saleDate))}` }
               </td>
               <td
-                data-testid={ `${string}details-label-delivery-status` }
+                data-testid={ `${dtDefault}details-label-delivery-status` }
               >
                 {
                   order.status
                 }
               </td>
-              <td>
-                <button
-                  type="button"
-                  onClick={ () => console.log('Pedido finalizado') }
-                  disabled={ isDelivered }
-                  data-testid="customer_order_details__button-delivery-check"
-                >
-                  Marcar como entregue
-                </button>
-              </td>
+              <button
+                type="button"
+                onClick={ () => setIsDelivered(!isDelivered) }
+                disabled={ isDelivered }
+                data-testid="customer_order_details__button-delivery-check"
+              >
+                Marcar como entregue
+              </button>
             </thead>
             <tbody>
               {
@@ -70,27 +66,27 @@ export default function OrderDetails() {
                     key={ index }
                   >
                     <td
-                      data-testid={ `${string}table-item-number-${index}` }
+                      data-testid={ `${dtDefault}table-item-number-${index}` }
                     >
                       { (index + 1) }
                     </td>
                     <td
-                      data-testid={ `${string}table-name-${index}` }
+                      data-testid={ `${dtDefault}table-name-${index}` }
                     >
                       { product.name }
                     </td>
                     <td
-                      data-testid={ `${string}table-quantity-${index}` }
+                      data-testid={ `${dtDefault}table-quantity-${index}` }
                     >
                       { product.salesProducts.quantity }
                     </td>
                     <td
-                      data-testid={ `${string}table-unit-price-${index}` }
+                      data-testid={ `${dtDefault}table-unit-price-${index}` }
                     >
                       { product.price }
                     </td>
                     <td
-                      data-testid={ `${string}table-sub-total-${index}` }
+                      data-testid={ `${dtDefault}table-sub-total-${index}` }
                     >
                       { (product.price * product.salesProducts.quantity)
                         .toFixed(2).replace('.', ',') }
@@ -99,15 +95,14 @@ export default function OrderDetails() {
                 ))
               }
             </tbody>
+            <h5
+              data-testid={ `${dtDefault}total-price` }
+            >
+              { order.totalPrice.replace('.', ',') }
+            </h5>
           </table>
         )
       }
-      <span
-        data-testid={ `${string}total-price` }
-      >
-        { order.totalPrice.replace('.', ',') }
-      </span>
-      <button type="button" onClick={ () => console.log(order) }>botaum</button>
     </div>
   );
 }
