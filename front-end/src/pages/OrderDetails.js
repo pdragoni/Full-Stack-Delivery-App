@@ -12,7 +12,7 @@ export default function OrderDetails() {
   useEffect(() => {
     getOrderById(id).then((response) => setOrder(response));
     console.log(order);
-  }, []);
+  }, [id]);
 
   console.log(order);
 
