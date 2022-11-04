@@ -5,7 +5,7 @@ import { getOrderById } from '../API/instance';
 
 export default function OrderDetails() {
   const [order, setOrder] = useState();
-  const [isDisable, setIsDisable] = useState(true);
+  const [isDelivered, setIsDelivered] = useState(true);
 
   const { id } = useParams();
 
@@ -56,7 +56,7 @@ export default function OrderDetails() {
                 <button
                   type="button"
                   onClick={ () => console.log('Pedido finalizado') }
-                  disabled={ isDisable }
+                  disabled={ isDelivered }
                   data-testid="customer_order_details__button-delivery-check"
                 >
                   Marcar como entregue
