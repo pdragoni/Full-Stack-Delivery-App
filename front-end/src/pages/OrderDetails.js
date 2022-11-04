@@ -17,7 +17,7 @@ export default function OrderDetails() {
     // console.log(split);
   }, [id]);
 
-  console.log(order);
+  // console.log(order);
 
   return (
     <div>
