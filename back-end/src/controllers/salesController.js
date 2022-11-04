@@ -49,7 +49,6 @@ const findByUser = async (req, res) => {
   try {
     const { email } = req.body;
     const salesByUser = await salesServices.findByUser(email);
-
     if (!salesByUser) return res.status(404).json({ message: 'Not Found' });
     return res.status(200).json(salesByUser);
   } catch (error) {

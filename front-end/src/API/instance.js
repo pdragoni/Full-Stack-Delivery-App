@@ -47,11 +47,9 @@ const getAllSellers = async () => {
 
 const getOrders = async (email) => {
   try {
-    const response = await instance.get('/sales/user', { email });
-    // console.log(response);
+    const response = await instance.post('/sales/user', { email });
     return response.data;
   } catch (error) {
-    // console.log(error);
     return null;
   }
 };
