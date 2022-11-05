@@ -10,6 +10,14 @@ export default function Login() {
   const [validEmail, setValidEmail] = useState(true);
   const navigate = useNavigate();
 
+  const redirectByRole = (role) => {
+    switch (role) {
+    case 'customer': return navigate('/customer/products');
+    case 'seller': return navigate('/seller/orders');
+    default: return navigate('/admin/manage');
+    }
+  };
+
   const loginClick = async () => {
     const response = await loginUser({ email, password });
     if (!response) {
@@ -17,19 +25,15 @@ export default function Login() {
     }
     const responseJson = response.data;
     setLocalStorage('user', responseJson);
-    navigate('/customer/products');
+    const { role } = responseJson;
+    redirectByRole(role);
   };
 
   useEffect(() => {
     const user = getLocalStorage('user');
     if (user) {
       const { role } = user;
-      switch (role) {
-      case 'customer': return navigate('/customer/products');
-      case 'seller': return navigate('/seller/orders');
-      case 'administrator': return navigate('/admin/manage');
-      default: return 0;
-      }
+      return redirectByRole(role);
     }
   }, []); // eslint-disable-line
 

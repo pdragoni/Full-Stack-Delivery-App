@@ -77,13 +77,27 @@ const getUserId = async (email) => {
 };
 
 const createOrder = async (order, token) => {
-  const config = {
+  const headers = {
     headers: {
       authorization: token,
     },
   };
-  const response = await instance.post('/sales', order, config);
+  const response = await instance.post('/sales', order, headers);
   return response.data;
+};
+
+const createUserByAdm = async (form, token) => {
+  const headers = {
+    headers: {
+      authorization: token,
+    },
+  };
+  try {
+    const response = await instance.post('/admin/register', { ...form }, headers);
+    return response.data;
+  } catch (error) {
+    return null;
+  }
 };
 
 export {
@@ -95,4 +109,5 @@ export {
   createOrder,
   getOrders,
   getOrderById,
+  createUserByAdm,
 };

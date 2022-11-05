@@ -8,6 +8,7 @@ import Checkout from './pages/Checkout';
 import Provider from './API/Provider';
 import CustomerOrders from './pages/CustomerOrders';
 import OrderDetails from './pages/OrderDetails';
+import AdminPage from './pages/AdminPage';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route exact path="/customer/checkout" element={ <Checkout /> } />
           <Route exact path="/customer/orders" element={ <CustomerOrders /> } />
           <Route exact path="/customer/orders/:id" element={ <OrderDetails /> } />
+          <Route exact path="/admin/manage" element={ <AdminPage /> } />
         </Routes>
       </Provider>
     </BrowserRouter>
