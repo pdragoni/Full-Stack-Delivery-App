@@ -1,11 +1,15 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { createUserByAdm } from '../API/instance';
 import Navbar from '../components/Navbar';
 import { getLocalStorage } from '../helpers/localStorage';
 
 export default function AdminPage() {
-  const [formValues, setFormValues] = useState({ name: '', email: '', password: '' });
-  const roleSelect = useRef(null);
+  const [formValues, setFormValues] = useState({
+    name: '',
+    email: '',
+    password: '',
+    role: 'seller',
+  });
   const [showMessage, setShowMessage] = useState(false);
 
   const onInputChange = ({ target: { name, value } }) => {
@@ -21,13 +25,13 @@ export default function AdminPage() {
   };
 
   const createUser = async () => {
-    const { name, email, password } = formValues;
-    const role = roleSelect.current.value;
+    const { name, email, password, role } = formValues;
     const { token } = getLocalStorage('user');
     const data = await createUserByAdm({ name, email, password, role }, token);
     console.log(data);
     if (data) {
-      return window.alert('Usuário criado com sucesso!'); // eslint-disable-line
+      console.log('Usuário criado com sucesso!');
+      return setFormValues({ name: '', email: '', password: '', role: 'seller' });
     }
     return setShowMessage(true);
   };
@@ -43,6 +47,7 @@ export default function AdminPage() {
             data-testid="admin_manage__input-name"
             type="text"
             name="name"
+            value={ formValues.name }
             placeholder="Nome e sobrenome"
             onChange={ onInputChange }
           />
@@ -54,6 +59,7 @@ export default function AdminPage() {
             data-testid="admin_manage__input-email"
             type="email"
             name="email"
+            value={ formValues.email }
             placeholder="user@email.com"
             onChange={ onInputChange }
           />
@@ -66,6 +72,7 @@ export default function AdminPage() {
             type="password"
             name="password"
             placeholder="******"
+            value={ formValues.password }
             onChange={ onInputChange }
           />
         </label>
@@ -74,8 +81,9 @@ export default function AdminPage() {
           Tipo
           <select
             data-testid="admin_manage__select-role"
-            defaultValue="seller"
-            ref={ roleSelect }
+            name="role"
+            onChange={ onInputChange }
+            value={ formValues.role }
           >
             <option value="seller">Vendedor</option>
             <option value="customer">Cliente</option>

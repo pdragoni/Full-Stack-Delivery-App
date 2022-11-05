@@ -13,4 +13,14 @@ const checkToken = (req, res, next) => {
   }
 };
 
-module.exports = { checkToken };
+const checkAdmin = (req, res, next) => {
+  const { data } = req.user;
+  
+  if (data.role !== 'administrator') {
+    return res.status(401).json({ message: 'Token is not from an administrator' });
+  }
+
+  if (data.role === 'administrator') next();
+};
+
+module.exports = { checkToken, checkAdmin };
