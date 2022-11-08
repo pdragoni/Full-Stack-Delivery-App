@@ -4,7 +4,7 @@ import { getLocalStorage } from '../helpers/localStorage';
 
 export default function Navbar() {
   const navigate = useNavigate();
-  const { name } = getLocalStorage('user');
+  const { name, role } = getLocalStorage('user');
   const logoutClick = () => {
     localStorage.removeItem('user');
     navigate('/');
@@ -22,7 +22,7 @@ export default function Navbar() {
       <button
         data-testid="customer_products__element-navbar-link-orders"
         type="button"
-        onClick={ () => navigate('/customer/orders') }
+        onClick={ () => navigate(`/${role}/orders`) }
       >
         Pedidos
       </button>

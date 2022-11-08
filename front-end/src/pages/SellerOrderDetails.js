@@ -3,14 +3,14 @@ import { useParams } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import { getOrderById, updateOrder } from '../API/instance';
 
-export default function OrderDetails() {
+export default function SellerOrderDetails() {
   const [order, setOrder] = useState();
   // const [isDelivered, setIsDelivered] = useState(true);
   const [statusDelivered, setStatusDelivered] = useState('');
 
   const { id } = useParams();
 
-  const dtDefault = 'customer_order_details__element-order-';
+  const dtDefault = 'seller_order_details__element-order-';
 
   const changeStatus = async (value) => {
     await updateOrder(value, id);
@@ -45,9 +45,9 @@ export default function OrderDetails() {
                 { order.id }
               </td>
               <td
-                data-testid={ `${dtDefault}details-label-seller-name` }
+                data-testid={ `${dtDefault}details-label-delivery-status` }
               >
-                { order.seller.name }
+                { order.status }
               </td>
               <td
                 data-testid={ `${dtDefault}details-label-order-date` }
@@ -56,20 +56,21 @@ export default function OrderDetails() {
                 { `${new Intl.DateTimeFormat('pt-BR')
                   .format(new Date(order.saleDate))}` }
               </td>
-              <td
-                data-testid={ `${dtDefault}details-label-delivery-status` }
-              >
-                {
-                  order.status
-                }
-              </td>
               <button
                 type="button"
-                onClick={ () => changeStatus('Entregue') }
-                disabled={ statusDelivered !== 'Em Trânsito' }
-                data-testid="customer_order_details__button-delivery-check"
+                onClick={ () => changeStatus('Preparando') }
+                disabled={ statusDelivered !== 'Pendente' }
+                data-testid="seller_order_details__button-preparing-check"
               >
-                Marcar como entregue
+                Marcar como preparando
+              </button>
+              <button
+                type="button"
+                onClick={ () => changeStatus('Em Trânsito') }
+                disabled={ statusDelivered !== 'Preparando' }
+                data-testid="seller_order_details__button-dispatch-check"
+              >
+                Marcar como em trânsito
               </button>
             </thead>
             <tbody>
@@ -108,11 +109,11 @@ export default function OrderDetails() {
                 ))
               }
             </tbody>
-            <h5
+            <tr
               data-testid={ `${dtDefault}total-price` }
             >
               { order.totalPrice.replace('.', ',') }
-            </h5>
+            </tr>
           </table>
         )
       }
