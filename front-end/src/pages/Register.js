@@ -1,7 +1,7 @@
 import { React, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { registerUser } from '../API/instance';
-import { setLocalUser } from '../helpers/localStorage';
+import { setLocalStorage } from '../helpers/localStorage';
 
 export default function Register() {
   const [btnDisable, setBtnDisable] = useState(true);
@@ -38,7 +38,7 @@ export default function Register() {
 
     if (!userData) return setAlreadyRegistered(true);
 
-    setLocalUser(userData);
+    setLocalStorage('user', userData);
     navigate('/customer/products');
   };
 
