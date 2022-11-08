@@ -1,21 +1,34 @@
 import { React, useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Navbar from '../components/Navbar';
-import { getOrderById } from '../API/instance';
+import { getOrderById, updateOrder } from '../API/instance';
 
 export default function OrderDetails() {
   const [order, setOrder] = useState();
-  const [isDelivered, setIsDelivered] = useState(true);
+  // const [isDelivered, setIsDelivered] = useState(true);
+  const [statusDelivered, setStatusDelivered] = useState('');
 
   const { id } = useParams();
 
   const dtDefault = 'customer_order_details__element-order-';
 
+  const changeStatus = async (value) => {
+    await updateOrder(value, id);
+    await setStatusDelivered(value);
+  };
+
   useEffect(() => {
-    getOrderById(id).then((response) => setOrder(response));
-    // const split = order.saleDate.substring(2, ten);
-    // console.log(split);
+    getOrderById(id).then((response) => {
+      setOrder(response);
+      setStatusDelivered(response.status);
+    });
   }, [id]);
+
+  useEffect(() => {
+    getOrderById(id).then((response) => {
+      setOrder(response);
+    });
+  }, [statusDelivered]);
 
   // console.log(order);
 
@@ -52,8 +65,8 @@ export default function OrderDetails() {
               </td>
               <button
                 type="button"
-                onClick={ () => setIsDelivered(!isDelivered) }
-                disabled={ isDelivered }
+                onClick={ () => changeStatus('Entregue') }
+                disabled={ statusDelivered !== 'Em Trânsito' }
                 data-testid="customer_order_details__button-delivery-check"
               >
                 Marcar como entregue
