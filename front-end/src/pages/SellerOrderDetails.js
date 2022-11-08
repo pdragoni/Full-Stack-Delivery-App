@@ -53,14 +53,14 @@ export default function SellerOrderDetails() {
               <button
                 type="button"
                 onClick={ () => setIsDelivered(!isDelivered) }
-                disabled={ isDelivered }
+                disabled={ !isDelivered }
                 data-testid="seller_order_details__button-preparing-check"
               >
                 Marcar como entregue
               </button>
               <button
                 type="button"
-                onClick={ () => setIsDelivered(!isDelivered) }
+                // onClick={ () => setIsDelivered(isDelivered) }
                 disabled={ isDelivered }
                 data-testid="seller_order_details__button-dispatch-check"
               >
