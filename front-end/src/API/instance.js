@@ -100,6 +100,18 @@ const createUserByAdm = async (form, token) => {
   }
 };
 
+const updateOrder = async (value, id) => {
+  const body = {
+    status: value,
+  };
+  try {
+    const response = await instance.put(`/sales/${id}`, body);
+    return response.data;
+  } catch (error) {
+    return null;
+  }
+};
+
 export {
   loginUser,
   registerUser,
@@ -110,4 +122,5 @@ export {
   getOrders,
   getOrderById,
   createUserByAdm,
+  updateOrder,
 };

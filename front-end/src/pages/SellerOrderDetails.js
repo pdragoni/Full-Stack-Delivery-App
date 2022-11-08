@@ -1,21 +1,34 @@
 import { React, useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Navbar from '../components/Navbar';
-import { getOrderById } from '../API/instance';
+import { getOrderById, updateOrder } from '../API/instance';
 
 export default function SellerOrderDetails() {
   const [order, setOrder] = useState();
-  const [isDelivered, setIsDelivered] = useState(true);
+  // const [isDelivered, setIsDelivered] = useState(true);
+  const [statusDelivered, setStatusDelivered] = useState('');
 
   const { id } = useParams();
 
   const dtDefault = 'seller_order_details__element-order-';
 
+  const changeStatus = async (value) => {
+    await updateOrder(value, id);
+    await setStatusDelivered(value);
+  };
+
   useEffect(() => {
-    getOrderById(id).then((response) => setOrder(response));
-    // const split = order.saleDate.substring(2, ten);
-    // console.log(split);
+    getOrderById(id).then((response) => {
+      setOrder(response);
+      setStatusDelivered(response.status);
+    });
   }, [id]);
+
+  useEffect(() => {
+    getOrderById(id).then((response) => {
+      setOrder(response);
+    });
+  }, [statusDelivered]);
 
   // console.log(order);
 
@@ -43,28 +56,21 @@ export default function SellerOrderDetails() {
                 { `${new Intl.DateTimeFormat('pt-BR')
                   .format(new Date(order.saleDate))}` }
               </td>
-              {/* <td
-                data-testid={ `${dtDefault}seller_order_details__button-preparing-check` }
-              >
-                {
-                  order.status
-                }
-              </td> */}
               <button
                 type="button"
-                onClick={ () => setIsDelivered(!isDelivered) }
-                disabled={ !isDelivered }
+                onClick={ () => changeStatus('Preparando') }
+                disabled={ statusDelivered !== 'Pendente' }
                 data-testid="seller_order_details__button-preparing-check"
               >
-                Marcar como entregue
+                Marcar como preparando
               </button>
               <button
                 type="button"
-                // onClick={ () => setIsDelivered(isDelivered) }
-                disabled={ isDelivered }
+                onClick={ () => changeStatus('Em Trânsito') }
+                disabled={ statusDelivered !== 'Preparando' }
                 data-testid="seller_order_details__button-dispatch-check"
               >
-                Marcar como entregue
+                Marcar como em trânsito
               </button>
             </thead>
             <tbody>
@@ -103,11 +109,11 @@ export default function SellerOrderDetails() {
                 ))
               }
             </tbody>
-            <h5
+            <tr
               data-testid={ `${dtDefault}total-price` }
             >
               { order.totalPrice.replace('.', ',') }
-            </h5>
+            </tr>
           </table>
         )
       }
