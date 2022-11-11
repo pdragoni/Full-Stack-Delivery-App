@@ -11,6 +11,11 @@
   margin: 10% 20% 0 20%;
 }
 
+.nav-logo {
+  width: 30px;
+  height: 30px;
+}
+
 .form-floating {
   margin: -10px 0;
 }
@@ -152,4 +157,114 @@
   100% {
       transform:  translate(0,0);
   }
+}
+
+.nav-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-button {
+  display: inline-block;
+  outline: 0;
+  cursor: pointer;
+  border: 1px solid #000;
+  border-radius: 3px;
+  color: black;
+  background: #ffff00;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 28px;
+  padding: 10px 15px;
+  text-align:center;
+  transition-duration: .15s;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(.4,0,.2,1);
+}
+
+.nav-button:hover{
+  color: white;
+  background: black;
+}
+
+.nav-button-exit {
+  display: inline-block;
+  outline: 0;
+  cursor: pointer;
+  border: 1px solid #000;
+  border-radius: 3px;
+  color: white;
+  background: black;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 28px;
+  padding: 10px 15px;
+  text-align:center;
+  transition-duration: .15s;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(.4,0,.2,1);
+}
+
+.nav-button-exit:hover{
+  color: #000;
+  background: #ffff00;
+}
+
+.products-field {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.product {
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px;
+  width: 170px;
+}
+.product-input-buttons {
+  display: flex;
+  justify-content: center;
+}
+
+.input-buttons {
+  background-color: black;
+  color: white;
+  font-size: 15px;
+}
+
+.input-buttons:hover {
+  background-color: black;
+  color: yellow;
+}
+
+.product-input {
+  width: 50px;
+  text-align: center;
+}
+
+.products-total-value {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  color: white;
+  background: black;
+}
+
+.footer-value {
+  color: white;
+  background: black;
+  font-size: 13px;
+}
+
+.footer-value:hover {
+  color: yellow;
+  background: black;
+}
+
+h5 {
+  text-align: center;
 }
