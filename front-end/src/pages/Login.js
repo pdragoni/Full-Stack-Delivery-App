@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { loginUser } from '../API/instance';
 import { getLocalStorage, setLocalStorage } from '../helpers/localStorage';
 import logo from '../images/logo-full.png';
-import subLogo from '../images/sub-logo.png';
 import beerRight from '../images/beer-right.png';
 import beerLeft from '../images/beer-left.png';
 
