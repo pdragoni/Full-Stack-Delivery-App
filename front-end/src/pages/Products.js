@@ -62,15 +62,15 @@ export default function Products() {
         {
           products.map((product) => (
             <fieldset className="product" key={ product.id }>
-              <h4 data-testid={ `customer_products__element-card-price-${product.id}` }>
+              <h5 data-testid={ `customer_products__element-card-price-${product.id}` }>
                 R$
                 { product.price.replace('.', ',') }
-              </h4>
+              </h5>
               <img
+                className="product-image"
                 data-testid={ `customer_products__img-card-bg-image-${product.id}` }
                 src={ product.url_image }
                 alt={ product.name }
-                width="100px"
               />
               <br />
               <h5 data-testid={ `customer_products__element-card-title-${product.id}` }>
