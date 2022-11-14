@@ -67,87 +67,122 @@ export default function Checkout() {
   return (
     <div>
       <Navbar />
-      <ol>
+      <ul>
         { atual && atual.map((c, i) => (
           <li
             key={ c.id }
+            className="product-checkout"
           >
-            <span
-              data-testid={ `customer_checkout__element-order-table-item-number-${i}` }
-            >
-              { i + 1 }
-            </span>
-            <p
-              data-testid={ `customer_checkout__element-order-table-name-${i}` }
-            >
-              { c.name }
-            </p>
-
-            <br />
-
-            {/* <img src={ c.url_image } alt={ c.name } width="150px" /> */}
-            <br />
-            <span
-              data-testid={ `customer_checkout__element-order-table-quantity-${i}` }
-            >
-              { c.quantity }
-            </span>
-            <br />
-            <span
-              data-testid={ `customer_checkout__element-order-table-unit-price-${i}` }
-            >
-              { (c.price).replace('.', ',') }
-            </span>
-            <br />
-            <span
-              data-testid={ `customer_checkout__element-order-table-sub-total-${i}` }
-            >
-              { (c.price * c.quantity).toFixed(2).replace('.', ',') }
-            </span>
-            <br />
+            <div className="product-ckt-first">
+              <p
+                className="ckt-title"
+                data-testid={ `customer_checkout__element-order-table-item-number-${i}` }
+              >
+                { i + 1 }
+              </p>
+              <p
+                className="ckt-title"
+                data-testid={ `customer_checkout__element-order-table-name-${i}` }
+              >
+                { c.name }
+              </p>
+            </div>
+            <div className="product-ckt-second">
+              <img src={ c.url_image } alt={ c.name } className="product-image-ckt" />
+              <div className="product-ckt-second-son">
+                <p
+                  data-testid={ `customer_checkout__element-order-table-quantity-${i}` }
+                >
+                  { `Quantidade: ${c.quantity}` }
+                </p>
+                <p
+                  data-testid={ `customer_checkout__element-order-table-unit-price-${i}` }
+                >
+                  { `Preço unitário: ${(c.price).replace('.', ',')}` }
+                </p>
+                <p
+                  data-testid={ `customer_checkout__element-order-table-sub-total-${i}` }
+                >
+                  { `Subtotal: ${(c.price * c.quantity).toFixed(2).replace('.', ',')}` }
+                </p>
+              </div>
+            </div>
             <button
+              className="nav-button ckt-button"
               data-testid={ `customer_checkout__element-order-table-remove-${i}` }
               type="button"
               onClick={ () => removeItem(c.id) }
             >
-              remove
+              Remover
             </button>
           </li>
         ))}
-      </ol>
-      <span
-        data-testid="customer_checkout__element-order-total-price"
-      >
-        { calculateTotalPrice(atual) }
-      </span>
-      <form>
-        <select data-testid="customer_checkout__select-seller" ref={ sellerSelect }>
-          { sellers && sellers.map((seller, index) => (
-            <option key={ index } value={ seller.id }>{ seller.name }</option>
-          ))}
-        </select>
-        <br />
-        <input
-          type="text"
-          data-testid="customer_checkout__input-address"
-          onChange={ ({ target }) => setAddress(target.value) }
-        />
-        <br />
-        <input
-          type="number"
-          min="0"
-          data-testid="customer_checkout__input-address-number"
-          onChange={ ({ target }) => setAddressNumber(target.value) }
-        />
-        <button
-          type="button"
-          disabled={ isDisable }
-          data-testid="customer_checkout__button-submit-order"
-          onClick={ finishOrder }
-        >
-          Finalizar Pedido
-        </button>
-      </form>
+      </ul>
+      <div>
+        <div className="ckt-total">
+          <h4
+            data-testid="customer_checkout__element-order-total-price"
+          >
+            { `Valor total da compra: R$ ${calculateTotalPrice(atual)}` }
+          </h4>
+          <div>
+            Vendedor(a):
+            <select data-testid="customer_checkout__select-seller" ref={ sellerSelect }>
+              { sellers && sellers.map((seller, index) => (
+                <option
+                  key={ index }
+                  value={ seller.id }
+                >
+                  { seller.name }
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+        <form className="login-form ckt-form">
+          <div>
+            <h3>
+              Digite local de entrega
+            </h3>
+          </div>
+          <div className="form-floating mb-3">
+            <input
+              type="text"
+              className="form-control"
+              id="floatingInput6"
+              data-testid="customer_checkout__input-address"
+              placeholder="Rua"
+              onChange={ ({ target }) => setAddress(target.value) }
+            />
+            <label className="input-form" htmlFor="floatingInput6">
+              Rua
+            </label>
+          </div>
+          <div className="form-floating mb-3">
+            <input
+              className="form-control"
+              id="floatingInput7"
+              placeholder="Número"
+              type="number"
+              min="0"
+              data-testid="customer_checkout__input-address-number"
+              onChange={ ({ target }) => setAddressNumber(target.value) }
+            />
+            <label className="input-form" htmlFor="floatingInput7">
+            Número
+            </label>
+          </div>
+          <button
+            className="nav-button ckt-button"
+            type="button"
+            disabled={ isDisable }
+            data-testid="customer_checkout__button-submit-order"
+            onClick={ finishOrder }
+          >
+            Finalizar Pedido
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
