@@ -57,10 +57,10 @@ const getOrders = async (email) => {
 const getOrderById = async (id) => {
   try {
     const response = await instance.get(`/sales/${id}`);
-    // console.log(response);
+    if (!response) return null;
     return response.data;
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     return null;
   }
 };
