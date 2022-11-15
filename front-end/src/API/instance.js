@@ -99,7 +99,6 @@ const createUserByAdm = async (form, token) => {
     return null;
   }
 };
-
 const updateOrder = async (value, id) => {
   const body = {
     status: value,
@@ -108,6 +107,16 @@ const updateOrder = async (value, id) => {
     const response = await instance.put(`/sales/${id}`, body);
     return response.data;
   } catch (error) {
+    return null;
+  }
+};
+
+const getUsers = async () => {
+  try {
+    const response = await instance.get('/users');
+    return response.data;
+  } catch (error) {
+    console.log(error);
     return null;
   }
 };
@@ -123,4 +132,5 @@ export {
   getOrderById,
   createUserByAdm,
   updateOrder,
+  getUsers,
 };
