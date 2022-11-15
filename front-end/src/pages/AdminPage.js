@@ -15,46 +15,33 @@ export default function AdminPage() {
     fetchUsers();
   }, []);
   return (
-    <div>
+    <div className="admin-page-container">
       <Navbar />
       <AdminRegisterForm />
-      <table>
-        <thead>
-          <tr>
-            <th>Item</th>
-            <th>Nome</th>
-            <th>Email</th>
-            <th>Tipo</th>
-            <th>Excluir</th>
-          </tr>
-        </thead>
-        <tbody>
-          { users?.map((user, index) => (
-            <tr key={ index }>
-              <td data-testid={ `${defaultTestidString}-item-number-${index}` }>
-                { index + 1 }
-              </td>
-              <td data-testid={ `${defaultTestidString}-name-${index}` }>
-                { user.name }
-              </td>
-              <td data-testid={ `${defaultTestidString}-email-${index}` }>
-                { user.email }
-              </td>
-              <td data-testid={ `${defaultTestidString}-role-${index}` }>
-                { user.role }
-              </td>
-              <td>
-                <button
-                  type="button"
-                  data-testid={ `${defaultTestidString}-remove-${index}` }
-                >
-                  Excluir
-                </button>
-              </td>
-            </tr>
+      <div className="users-list-container">
+        <ul>
+          {users.map((user, index) => (
+            <li key={ index }>
+              <p data-testid={ `${defaultTestidString}-item-number-${index}` }>
+                {index + 1}
+              </p>
+              <p data-testid={ `${defaultTestidString}-name` }>{user.name}</p>
+              <p data-testid={ `${defaultTestidString}-email` }>{user.email}</p>
+              <p data-testid={ `${defaultTestidString}-role` }>{user.role}</p>
+            </li>
           ))}
-        </tbody>
-      </table>
+        </ul>
+
+      </div>
     </div>
   );
 }
+
+/*
+
+- 69: data-testid={ `${defaultTestidString}-item-number-${index}`}
+- 70: data-testid={ `${defaultTestidString}-name-${index}`
+- 71: data-testid={ `${defaultTestidString}-email-${index}`
+- 72: data-testid={ `${defaultTestidString}-role-${index}`
+
+*/

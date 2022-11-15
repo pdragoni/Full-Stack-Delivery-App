@@ -35,8 +35,8 @@ export default function AdminRegisterForm() {
     return setShowMessage(true);
   };
   return (
-    <div>
-      <h2>Cadastrar novo usuário</h2>
+    <div className="admin-form-container">
+      <h4>Cadastre um novo usuário</h4>
       <form>
         <label htmlFor="name">
           Nome
