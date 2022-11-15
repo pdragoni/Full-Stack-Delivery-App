@@ -31,7 +31,7 @@ export default function AdminPage() {
         <tbody>
           { users?.map((user, index) => (
             <tr key={ index }>
-              <td data-testid={ `${defaultTestidString}-item-number${index}` }>
+              <td data-testid={ `${defaultTestidString}-item-number-${index}` }>
                 { index + 1 }
               </td>
               <td data-testid={ `${defaultTestidString}-name-${index}` }>
