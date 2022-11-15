@@ -26,15 +26,20 @@ export default function OrderList() {
               <p data-testid={ `${role}_orders__element-order-id-${order.id}` }>
                 {`Pedido ${order.id}`}
               </p>
-              <p data-testid={ `${role}_orders__element-order-date-${order.id}` }>
-                {new Intl.DateTimeFormat('pt-BR').format(new Date(order.saleDate))}
+              <p
+                className="order-status"
+                data-testid={ `${role}_orders__element-delivery-status-${order.id}` }
+              >
+                { order.status.toUpperCase() }
               </p>
-              <p data-testid={ `${role}_orders__element-card-price-${order.id}` }>
-                {`${order.totalPrice.replace('.', ',')}`}
-              </p>
-              <p data-testid={ `${role}_orders__element-delivery-status-${order.id}` }>
-                { order.status }
-              </p>
+              <div className="order-details">
+                <p data-testid={ `${role}_orders__element-order-date-${order.id}` }>
+                  {new Intl.DateTimeFormat('pt-BR').format(new Date(order.saleDate))}
+                </p>
+                <p data-testid={ `${role}_orders__element-card-price-${order.id}` }>
+                  {`R$ ${order.totalPrice.replace('.', ',')}`}
+                </p>
+              </div>
             </div>
           </Link>
         ))}

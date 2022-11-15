@@ -36,36 +36,43 @@ export default function OrderDetails() {
       <Navbar />
       {
         order && (
-          <fieldset>
-            <fieldset>
-              <thead>
-                <td
+          <div>
+            <div>
+              <div className="details-header">
+                <h4
                   data-testid={ `${dtDefault}element-order-details-label-order-id` }
                 >
-                  { order.id }
-                </td>
-                { role === 'customer' && (
-                  <td
-                    data-testid={ `${dtDefault}element-order-details-label-seller-name` }
+                  { `Detalhes do Pedido ${order.id}` }
+                </h4>
+                <div className="details-data">
+                  { role === 'customer' && (
+                    <p
+                      data-testid={ `${dtDefault}
+                        element-order-details-label-seller-name` }
+                    >
+                      { `Vendedor(a): ${order.seller.name}` }
+                    </p>
+                  )}
+                  <p
+                    data-testid={ `${dtDefault}element-order-details-label-order-date` }
                   >
-                    { order.seller.name }
-                  </td>
-                )}
-                <td
-                  data-testid={ `${dtDefault}element-order-details-label-order-date` }
-                >
-                  { `${new Intl.DateTimeFormat('pt-BR')
-                    .format(new Date(order.saleDate))}` }
-                </td>
-                <td
+                    { `Data do pedido: ${new Intl.DateTimeFormat('pt-BR')
+                      .format(new Date(order.saleDate))}` }
+                  </p>
+                </div>
+                <h4
+                  className="details-status"
                   data-testid={
                     `${dtDefault}element-order-details-label-delivery-status`
                   }
                 >
-                  { order.status }
-                </td>
+                  { order.status.toUpperCase() }
+                </h4>
+              </div>
+              <div className="details-buttons-ftr">
                 { role === 'customer' && (
                   <button
+                    className="details-buttons button-deliver"
                     type="button"
                     onClick={ () => changeStatus('Entregue') }
                     disabled={ statusDelivered !== 'Em Trânsito' }
@@ -75,85 +82,108 @@ export default function OrderDetails() {
                   </button>
                 )}
                 { role === 'seller' && (
-                  <button
-                    type="button"
-                    onClick={ () => changeStatus('Preparando') }
-                    disabled={ statusDelivered !== 'Pendente' }
-                    data-testid={ `${dtDefault}button-preparing-check` }
-                  >
-                    Marcar como preparando
-                  </button>
-                )}
-                { role === 'seller' && (
-                  <button
-                    type="button"
-                    onClick={ () => changeStatus('Em Trânsito') }
-                    disabled={ statusDelivered !== 'Preparando' }
-                    data-testid={ `${dtDefault}button-dispatch-check` }
-                  >
-                    Marcar como em trânsito
-                  </button>
-                )}
-              </thead>
-            </fieldset>
-            <fieldset>
-              <tbody>
-                {
-                  order.products?.map((product, index) => (
-                    <tr
-                      key={ index }
+                  <div>
+                    <button
+                      className="details-buttons button-prepare"
+                      type="button"
+                      onClick={ () => changeStatus('Preparando') }
+                      disabled={ statusDelivered !== 'Pendente' }
+                      data-testid={ `${dtDefault}button-preparing-check` }
                     >
-                      <td
-                        data-testid={
-                          `${dtDefault}element-order-fieldset-item-number-${index}`
-                        }
-                      >
-                        { (index + 1) }
+                      Marcar como preparando
+                    </button>
+                    <button
+                      className="details-buttons button-transit"
+                      type="button"
+                      onClick={ () => changeStatus('Em Trânsito') }
+                      disabled={ statusDelivered !== 'Preparando' }
+                      data-testid={ `${dtDefault}button-dispatch-check` }
+                    >
+                      Marcar como em trânsito
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
+            <div>
+              <div className="details-table-ftr">
+                <table>
+                  <thead>
+                    <tr>
+                      <td />
+                      <td>
+                        Item
                       </td>
-                      <td
-                        data-testid={ `${dtDefault}element-order-fieldset-name-${index}` }
-                      >
-                        { product.name }
+                      <td>
+                        Quant.
                       </td>
-                      <td
-                        data-testid={
-                          `${dtDefault}element-order-fieldset-quantity-${index}`
-                        }
-                      >
-                        { product.salesProducts.quantity }
+                      <td>
+                        Valor
                       </td>
-                      <td
-                        data-testid={
-                          `${dtDefault}element-order-fieldset-unit-price-${index}`
-                        }
-                      >
-                        { (product.price).replace('.', ',') }
-                      </td>
-                      <td
-                        data-testid={
-                          `${dtDefault}element-order-fieldset-sub-total-${index}`
-                        }
-                      >
-                        { (product.price * product.salesProducts.quantity)
-                          .toFixed(2).replace('.', ',') }
+                      <td>
+                        Subtotal
                       </td>
                     </tr>
-                  ))
-                }
-              </tbody>
-            </fieldset>
-            <fieldset>
-              <tfoot>
-                <tr
+                  </thead>
+                  <tbody>
+                    {
+                      order.products?.map((product, index) => (
+                        <tr
+                          key={ index }
+                        >
+                          <td
+                            data-testid={
+                              `${dtDefault}element-order-div-item-number-${index}`
+                            }
+                          >
+                            { (index + 1) }
+                          </td>
+                          <td
+                            className="details-table-name"
+                            data-testid={ `${dtDefault}element-order-div-name-${index}` }
+                          >
+                            { product.name }
+                          </td>
+                          <td
+                            data-testid={
+                              `${dtDefault}element-order-div-quantity-${index}`
+                            }
+                          >
+                            { product.salesProducts.quantity }
+                          </td>
+                          <td
+                            data-testid={
+                              `${dtDefault}element-order-div-unit-price-${index}`
+                            }
+                          >
+                            { (product.price).replace('.', ',') }
+                          </td>
+                          <td
+                            data-testid={
+                              `${dtDefault}element-order-div-sub-total-${index}`
+                            }
+                          >
+                            { (product.price * product.salesProducts.quantity)
+                              .toFixed(2).replace('.', ',') }
+                          </td>
+                        </tr>
+                      ))
+                    }
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div>
+              <div>
+                <h4
+                  className="details-footer"
                   data-testid={ `${dtDefault}element-order-total-price` }
                 >
-                  <h5>
-                    { order.totalPrice.replace('.', ',') }
-                  </h5>
-                </tr>
-              </tfoot>
-            </fieldset>
-          </fieldset>
+                  { `Valor total do pedido: R$ ${order.totalPrice.replace('.', ',')}` }
+                </h4>
+              </div>
+            </div>
+          </div>
         )
       }
     </div>

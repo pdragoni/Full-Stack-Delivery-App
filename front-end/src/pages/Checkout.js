@@ -142,7 +142,7 @@ export default function Checkout() {
         <form className="login-form ckt-form">
           <div>
             <h3>
-              Digite local de entrega
+              Endereço para entrega
             </h3>
           </div>
           <div className="form-floating mb-3">
@@ -169,7 +169,7 @@ export default function Checkout() {
               onChange={ ({ target }) => setAddressNumber(target.value) }
             />
             <label className="input-form" htmlFor="floatingInput7">
-            Número
+              Número
             </label>
           </div>
           <button
