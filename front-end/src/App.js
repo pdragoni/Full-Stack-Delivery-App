@@ -2,6 +2,8 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import './styles/App.css';
 import './styles/Checkout.css';
+import './styles/OrderList.css';
+import './styles/OrderDetails.css';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './pages/Login';
 import Register from './pages/Register';
