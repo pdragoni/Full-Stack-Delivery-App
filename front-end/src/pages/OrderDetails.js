@@ -62,7 +62,6 @@ export default function OrderDetails() {
                 </div>
                 <h4
                   className="details-status"
-
                   data-testid={
                     `${dtDefault}element-order-details-label-delivery-status`
                   }
