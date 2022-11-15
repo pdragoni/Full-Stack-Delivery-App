@@ -35,6 +35,21 @@
   width: 100%;
 }
 
+.admin-form-container select {
+  background-color: white;
+  border-radius: 5px;
+  display: flex;
+  padding: 4px;
+  width: 14.3em;
+}
+
+.admin-form-container select option {
+  background-color: white;
+  border-radius: 5px;
+  font-size: 1.4rem;
+  padding: 4px;
+}
+
 .admin-form-container button {
   background-color: white;
   border: 1px solid black;
@@ -45,7 +60,65 @@
   width: 100%;
 }
 
+.users-list-container button {
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 5px;
+  font-size: 1.4rem;
+  font-weight: 500;
+  height: 40px;
+  margin-top: 3%;
+  width: 50%;
+}
+
 .admin-form-container button:disabled {
   background-color: lightgray;
   color: darkgray;
+}
+
+/* Estilização da lista de usuários */
+.users-list-container {
+  align-items: center;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 4%;
+  width: 100%;
+}
+
+.users-list-container ul {
+  list-style: none;
+  margin-right: 9%;
+  width: 100%;
+}
+
+.users-list-container li {
+  align-items: center;
+  border: 1px solid black;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 3%;
+  padding: 2%;
+  width: 100%;
+}
+
+.user-item-number {
+  align-self: flex-start;
+  font-size: 1.7rem;
+  font-weight: 700;
+  padding-left: 5%;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  padding-left: 4%;
+  width: 95%;
+}
+
+.user-info span {
+  font-size: 1.3rem;
+  margin-bottom: 5px;
 }

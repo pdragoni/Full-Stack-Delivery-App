@@ -76,6 +76,7 @@ export default function AdminRegisterForm() {
         <br />
         <label htmlFor="role">
           Tipo
+          <br />
           <select
             data-testid="admin_manage__select-role"
             name="role"

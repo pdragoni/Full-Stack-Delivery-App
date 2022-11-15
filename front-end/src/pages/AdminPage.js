@@ -19,15 +19,30 @@ export default function AdminPage() {
       <Navbar />
       <AdminRegisterForm />
       <div className="users-list-container">
+        <h3>Usuários Cadastrados</h3>
         <ul>
           {users.map((user, index) => (
             <li key={ index }>
-              <p data-testid={ `${defaultTestidString}-item-number-${index}` }>
+              <span
+                data-testid={ `${defaultTestidString}-item-number-${index}` }
+                className="user-item-number"
+              >
                 {index + 1}
-              </p>
-              <p data-testid={ `${defaultTestidString}-name` }>{user.name}</p>
-              <p data-testid={ `${defaultTestidString}-email` }>{user.email}</p>
-              <p data-testid={ `${defaultTestidString}-role` }>{user.role}</p>
+              </span>
+              <div className="user-info">
+                <span data-testid={ `${defaultTestidString}-name` }>
+                  {`Nome: ${user.name}`}
+                </span>
+                <span data-testid={ `${defaultTestidString}-email` }>
+                  {`Email: ${user.email}`}
+                </span>
+                <span data-testid={ `${defaultTestidString}-role` }>
+                  {`Tipo: ${user.role}`}
+                </span>
+              </div>
+              <button type="button">
+                Excluir
+              </button>
             </li>
           ))}
         </ul>
