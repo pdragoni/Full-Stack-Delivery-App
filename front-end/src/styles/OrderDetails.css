@@ -10,10 +10,10 @@
 }
 
 .details-status {
-  text-align: center;
+  background-color: lightgoldenrodyellow;
   margin: 10px 0;
   padding: 10px;
-  background-color: lightgoldenrodyellow;
+  text-align: center;
 }
 
 .details-buttons-ftr {
@@ -23,42 +23,42 @@
 }
 
 .details-buttons {
-  display: inline-block;
-  outline: 0;
-  cursor: pointer;
-  border: 1px solid #000;
+  background: yellow;
+  border: 1px solid black;
   border-radius: 3px;
   color: black;
-  background: #ffff00;
+  cursor: pointer;
+  display: inline-block;
   font-size: 15px;
   font-weight: 600;
   line-height: 28px;
+  outline: 0;
   padding: 10px 15px;
-  text-align:center;
-  transition-duration: .15s;
+  text-align: center;
+  transition-duration: 0.15s;
   transition-property: all;
-  transition-timing-function: cubic-bezier(.4,0,.2,1);
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   width: 100%;
 }
 
-.button-deliver:hover{
-  color: white;
+.button-deliver:hover {
   background: green;
+  color: white;
 }
 
-.button-prepare:hover{
-  color: white;
+.button-prepare:hover {
   background: blue;
+  color: white;
 }
 
-.button-transit:hover{
-  color: white;
+.button-transit:hover {
   background: orange;
+  color: white;
 }
 
-.details-buttons:disabled{
-  color: white;
+.details-buttons:disabled {
   background: lightgray;
+  color: white;
 }
 
 .details-table-ftr {
@@ -75,10 +75,10 @@ tr {
 }
 
 td {
-  text-align: center;
+  border-bottom: 1px solid black;
   font-size: 14px;
   padding: 7px;
-  border-bottom: 1px solid black;
+  text-align: center;
 }
 
 .details-table-name {

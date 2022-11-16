@@ -1,22 +1,21 @@
 p {
   background-color: transparent;
-  margin: 5px;
   font-size: 14px;
+  margin: 5px;
 }
 
 .product-checkout {
-  border: 1px solid black;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
   align-items: center;
-  margin: 10px;
-  width: 300px;
+  border: 1px solid black;
   border-radius: 20px;
   box-shadow: 0 0 5px 2px #d0d0d0;
-  flex-wrap: wrap;
+  display: flex;
+  flex-flow: wrap column;
+  justify-content: space-evenly;
+  margin: 10px;
   padding: 10px;
-  transition: all .2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  width: 300px;
 }
 
 .product-checkout:hover {
@@ -29,9 +28,9 @@ h3 {
 }
 
 .product-image-ckt {
-  max-width: 90px;
-  max-height: 90px;
   background-color: transparent;
+  max-height: 90px;
+  max-width: 90px;
 }
 
 .product-ckt-first {
@@ -43,8 +42,8 @@ h3 {
 }
 
 .ckt-button {
-  margin-top: 20px;
   font-size: 15px;
+  margin-top: 20px;
   padding: 10px;
 }
 
@@ -58,13 +57,13 @@ h3 {
 }
 
 .ckt-total {
+  align-items: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
 }
 
 .ckt-form {
+  align-items: stretch;
   display: flex;
   flex-direction: column;
-  align-items: stretch;
 }
